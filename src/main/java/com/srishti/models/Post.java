@@ -14,19 +14,6 @@ import jakarta.persistence.OneToMany;
 @Entity
 
 public class Post {
-	public Post() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	public Post(Integer postid, String caption, String image, String video, User user, LocalDateTime createdAt) {
-		super();
-		this.postid = postid;
-		this.caption = caption;
-		this.image = image;
-		this.video = video;
-		this.user = user;
-		this.createdAt = createdAt;
-	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -53,6 +40,33 @@ public class Post {
 	}
 
 	private LocalDateTime createdAt;
+
+	@OneToMany
+	private List<Comment> comments = new ArrayList<>();
+
+	public Post() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Post(Integer postid, String caption, String image, String video, User user, List<User> liked, LocalDateTime createdAt, List<Comment> comments) {
+		super();
+		this.postid = postid;
+		this.caption = caption;
+		this.image = image;
+		this.video = video;
+		this.user = user;
+		this.liked = liked;
+		this.createdAt = createdAt;
+		this.comments = comments;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
 
 	public Integer getPostid() {
 		return postid;
