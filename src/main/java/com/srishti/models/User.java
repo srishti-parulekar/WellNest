@@ -31,7 +31,6 @@ public class User {
 		
 	}
 
-
 	public List<Post> getSavedPosts() {
 		return savedPosts;
 	}
@@ -47,15 +46,9 @@ public class User {
 	}
 
 
-
-
-
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-
-
-
 
 
 	public List<Integer> getFollowers() {
@@ -63,15 +56,9 @@ public class User {
 	}
 
 
-
-
-
 	public void setFollowers(List<Integer> followers) {
 		this.followers = followers;
 	}
-
-
-
 
 
 	public List<Integer> getFollowings() {
@@ -79,21 +66,14 @@ public class User {
 	}
 
 
-
-
-
 	public void setFollowings(List<Integer> followings) {
 		this.followings = followings;
 	}
 
 
-
-
-
 	public void setUserid(Integer userid) {
 		this.userid = userid;
 	}
-
 
 
 	public User(Integer userid, String firstName, String lastName, String email, String password, String gender,
@@ -110,18 +90,13 @@ public class User {
 		this.savedPosts = savedPosts;
 	}
 
-
 	public int getUserid() {
 		return userid;
 	}
 
-
-
 	public void setUserid(int userid) {
 		this.userid = userid;
 	}
-
-
 
 	public String getFirstName() {
 		return firstName;

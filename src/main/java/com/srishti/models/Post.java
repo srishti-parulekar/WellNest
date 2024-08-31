@@ -53,9 +53,7 @@ public class Post {
 	}
 
 	private LocalDateTime createdAt;
-	
 
-	
 	public Integer getPostid() {
 		return postid;
 	}
@@ -103,7 +101,5 @@ public class Post {
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
-
-	
 	
 }
