@@ -31,35 +31,45 @@ const Login = () => {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {() => (
-          <Form className="space-y-5">
-            <div className="space-y-5">
-              <Field
-                name="email"
-                placeholder="Email"
-                as={TextField}
-                type="email"
-                variant="outlined"
-                fullWidth
-              />
-              <ErrorMessage name="email" component="div" className="text-red-500" />
+        <Form className="space-y-5">
+          <div className="space-y-5">
+            <Field
+              name="email"
+              placeholder="Email"
+              as={TextField}
+              type="email"
+              variant="outlined"
+              fullWidth
+            />
+            <ErrorMessage
+              name="email"
+              component="div"
+              className="text-red-500"
+            />
 
-              <Field
-                name="password"
-                placeholder="Password"
-                as={TextField}
-                type="password"
-                variant="outlined"
-                fullWidth
-              />
-              <ErrorMessage name="password" component="div" className="text-red-500" />
-            </div>
+            <Field
+              name="password"
+              placeholder="Password"
+              as={TextField}
+              type="password"
+              variant="outlined"
+              fullWidth
+            />
+            <ErrorMessage
+              name="password"
+              component="div"
+              className="text-red-500"
+            />
+          </div>
 
-            <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded">
-              Login
-            </button>
-          </Form>
-        )}
+          <button
+            type="submit"
+            variant="contained"
+            className="w-full p-2 bg-blue-500 text-white rounded"
+          >
+            Login
+          </button>
+        </Form>
       </Formik>
     </>
   );
