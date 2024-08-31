@@ -11,14 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.srishti.models.Post;
-import com.srishti.models.User;
 import com.srishti.response.ApiResponse;
 import com.srishti.services.PostService;
-import com.srishti.services.UserService;
 
 @RestController
 public class PostController {
@@ -26,25 +23,19 @@ public class PostController {
 	@Autowired
 	PostService postService;
 	
-	@Autowired
-	UserService userService;
 	
-	@PostMapping("/api/posts")
-	public ResponseEntity<Post> createPost(@RequestHeader("Authorization") String jwt, @RequestBody Post post) throws Exception{
+	@PostMapping("/posts/user/{userid}")
+	public ResponseEntity<Post> createPost(@RequestBody Post post,@PathVariable Integer userid) throws Exception{
 		
-		User reqUser = userService.findUserByJwt(jwt);
-		
-		Post createdPost = postService.createNewPost(post, reqUser.getUserid());
+		Post createdPost = postService.createNewPost(post, userid);
 		
 		return new ResponseEntity<>(createdPost,HttpStatus.ACCEPTED);
 	}
 	
-	@DeleteMapping("/api/posts/{postid}")
-	public ResponseEntity<ApiResponse> deletePost(@PathVariable Integer postid,@RequestHeader("Authorization") String jwt) throws Exception{
+	@DeleteMapping("/posts/{postid}/user/{userid}")
+	public ResponseEntity<ApiResponse> deletePost(@PathVariable Integer postid, @PathVariable Integer userid) throws Exception{
 		
-		User reqUser = userService.findUserByJwt(jwt);
-		
-		String message = postService.deletePost(postid, reqUser.getUserid());
+		String message = postService.deletePost(postid, userid);
 		
 		ApiResponse response = new ApiResponse(message,true);
 		
@@ -87,11 +78,10 @@ public class PostController {
 	}
 	
 	
-	@PutMapping("/api/posts/like/{postid}")
-	public ResponseEntity<Post> likePost(@RequestHeader("Authorization") String jwt, @PathVariable Integer postid) throws Exception{
-		User reqUser = userService.findUserByJwt(jwt);
+	@PutMapping("/posts/like/{postid}/user/{userid}")
+	public ResponseEntity<Post> likePost(@PathVariable Integer postid, @PathVariable Integer userid) throws Exception{
 		
-		Post post = postService.likePost(postid,reqUser.getUserid());
+		Post post = postService.likePost(postid,userid);
 		
 		return new ResponseEntity<Post>(post,HttpStatus.ACCEPTED);
 	}

@@ -26,7 +26,8 @@ public class jwtValidator extends OncePerRequestFilter {
 		if(jwt!=null && jwt.startsWith("Bearer ")) {
 			jwt = jwt.substring(7);
 			try {
-				   
+				System.out.println("Extracted JWT: " + jwt); // Debugging line to log the token
+		          
 				String email = JwtProvider.getEmailFromJwtToken(jwt);
 				
 				List<GrantedAuthority> authorities = new ArrayList<>();
