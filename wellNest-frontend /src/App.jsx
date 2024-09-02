@@ -1,11 +1,9 @@
-import Authentication from './pages/Authentication/Authentication'
+import Authentication from './pages/Authentication/Authentication';
 
 function App() {
   return (
-    <>
-    <Authentication></Authentication>
-    </>
-  )
+    <Authentication />
+  );
 }
 
-export default App
+export default App;

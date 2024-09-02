@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Card, Box } from '@mui/material'; 
 import coverImage from '../../assets/cover.jpg';
-import Register from './Register';
+import Register from './Register'; 
 
 const Authentication = () => {
   return (
@@ -18,8 +18,7 @@ const Authentication = () => {
                 <h1 className="logo text-center font-bold text-3xl">WellNest</h1>
                 <p className="text-center text-sm w-[70%]">Your Safe Space for Mental Health</p>
               </div>
-              {/* <Login />  */}
-              <Register />
+              <Register /> 
             </Card>
           </Box>
         </Grid>

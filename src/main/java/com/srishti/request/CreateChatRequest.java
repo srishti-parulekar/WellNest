@@ -1,13 +1,16 @@
 package com.srishti.request;
 
-import com.srishti.models.User;
-
 public class CreateChatRequest {
+
     private Integer userid;
+
     CreateChatRequest(){
 
     }
-    CreateChatRequest(Integer userid) {}
+
+    CreateChatRequest(Integer userid) {
+
+    }
 
     public Integer getUserid() {
         return userid;

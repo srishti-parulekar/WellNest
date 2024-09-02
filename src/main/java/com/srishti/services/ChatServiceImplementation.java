@@ -13,7 +13,6 @@ import java.util.Optional;
 @Service
 public class ChatServiceImplementation implements ChatService{
 
-
     @Autowired
     ChatRepository chatRepository;
 
@@ -35,7 +34,9 @@ public class ChatServiceImplementation implements ChatService{
 
     @Override
     public Chat findChatById(Integer chatid) throws Exception {
+
         Optional<Chat> opt = chatRepository.findById(chatid);
+
         if(opt.isEmpty()){
             throw new Exception("This chat doesnt exist, of id: " + chatid);
         }

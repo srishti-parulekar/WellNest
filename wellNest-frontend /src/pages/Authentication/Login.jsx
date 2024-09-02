@@ -4,12 +4,9 @@ import { TextField } from "@mui/material";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { loginUserAction } from "../../redux/Auth/auth.action";
-import { data } from "autoprefixer";
 
-// Initial form values
 const initialValues = { email: "", password: "" };
 
-// Validation schema using Yup
 const validationSchema = Yup.object({
   email: Yup.string()
     .email("Invalid email address")
