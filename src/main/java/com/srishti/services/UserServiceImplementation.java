@@ -3,6 +3,7 @@ package com.srishti.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.srishti.exceptions.UserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,13 +36,13 @@ public class UserServiceImplementation implements UserService{
 	}
 
 	@Override
-	public User findUserById(Integer userid) throws Exception {
+	public User findUserById(Integer userid) throws UserException {
 		Optional<User> user = userRepository.findById(userid);
 
 		if(user.isPresent()) {
 			return user.get();
 		}
-		throw new Exception("user with the given id doesnt exist: " + userid);
+		throw new UserException("user with the given id doesnt exist: " + userid);
 
 	}
 
@@ -54,7 +55,7 @@ public class UserServiceImplementation implements UserService{
 	}
 
 	@Override
-	public User followUser(Integer reqUserId, Integer userid2) throws Exception {
+	public User followUser(Integer reqUserId, Integer userid2) throws UserException {
 		User reqUser = findUserById(reqUserId);
 
 		User user2 = findUserById(userid2);
@@ -74,11 +75,11 @@ public class UserServiceImplementation implements UserService{
 	}
 
 	@Override
-	public User updateUser(User user, Integer userid) throws Exception {
+	public User updateUser(User user, Integer userid) throws UserException {
 		Optional<User> user1 = userRepository.findById(userid);
 
 		if(user1.isEmpty()) {
-			throw new Exception("user with the given id doesnt exist: " + userid);
+			throw new UserException("user with the given id doesnt exist: " + userid);
 		}
 
 		User oldUser = user1.get();

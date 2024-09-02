@@ -3,6 +3,7 @@ package com.srishti.controller;
 import java.util.List;
 //import java.util.Optional;
 
+import com.srishti.exceptions.UserException;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.*;
@@ -38,14 +39,14 @@ public class UserController {
 	}
 
 	@GetMapping("/api/users/{userid}")
-	public User getUsersById(@PathVariable Integer userid) throws Exception{
+	public User getUsersById(@PathVariable Integer userid) throws UserException {
 		User user = userService.findUserById(userid);
 		return user;
 
 	}
 
 	@PutMapping("/api/users")
-	public User updateUser(@RequestHeader("Authorization") String jwt, @RequestBody User user) throws Exception {
+	public User updateUser(@RequestHeader("Authorization") String jwt, @RequestBody User user) throws UserException {
 		User reqUser = userService.findUserByJwt(jwt);
 
 		User updatedUser = userService.updateUser(user,reqUser.getUserid());
@@ -55,7 +56,7 @@ public class UserController {
 	}
 
 	@PutMapping("/api/users/follow/{userid2}")
-	public User followUserHandler(@RequestHeader("Authorization") String jwt, @PathVariable Integer userid2) throws Exception {
+	public User followUserHandler(@RequestHeader("Authorization") String jwt, @PathVariable Integer userid2) throws UserException {
 
 		User reqUser = userService.findUserByJwt(jwt);
 
