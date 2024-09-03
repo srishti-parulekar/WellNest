@@ -18,11 +18,11 @@ const validationSchema = Yup.object({
 
 const Login = () => {
   const [formValue, setFormValue] = useState();
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
 
   const handleSubmit = (values) => {
     console.log("Form submitted with values:", values);
-    dispatch(loginUserAction({data:values}))
+    dispatch(loginUserAction({ data: values }));
   };
 
   return (
@@ -41,6 +41,25 @@ const Login = () => {
               type="email"
               variant="outlined"
               fullWidth
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: "#78350f",
+                  },
+                  "&:hover fieldset": {
+                    borderColor: "#78350f",
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "#78350f",
+                  },
+                },
+                "& .MuiInputLabel-root": {
+                  color: "#78350f",
+                },
+                "& .MuiInputLabel-root.Mui-focused": {
+                  color: "#78350f",
+                },
+              }}
             />
             <ErrorMessage
               name="email"
@@ -55,6 +74,25 @@ const Login = () => {
               type="password"
               variant="outlined"
               fullWidth
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: "#78350f",
+                  },
+                  "&:hover fieldset": {
+                    borderColor: "#78350f",
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "#78350f",
+                  },
+                },
+                "& .MuiInputLabel-root": {
+                  color: "#78350f",
+                },
+                "& .MuiInputLabel-root.Mui-focused": {
+                  color: "#78350f",
+                },
+              }}
             />
             <ErrorMessage
               name="password"
@@ -66,7 +104,7 @@ const Login = () => {
           <button
             type="submit"
             variant="contained"
-            className="w-full p-2 bg-blue-500 text-white rounded"
+            className="w-full p-2 bg-orange-950 text-white rounded"
           >
             Login
           </button>

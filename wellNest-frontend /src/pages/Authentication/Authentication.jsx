@@ -2,6 +2,8 @@ import React from 'react';
 import { Grid, Card, Box } from '@mui/material'; 
 import coverImage from '../../assets/cover.jpg';
 import Register from './Register'; 
+import Login from './Login'; 
+import { Routes, Route } from 'react-router-dom';
 
 const Authentication = () => {
   return (
@@ -18,7 +20,13 @@ const Authentication = () => {
                 <h1 className="logo text-center font-bold text-3xl">WellNest</h1>
                 <p className="text-center text-sm w-[70%]">Your Safe Space for Mental Health</p>
               </div>
-              <Register /> 
+
+              <Routes>
+                <Route path="/" element={<Login />} />
+                <Route path="login" element={<Login />} />
+                <Route path="register" element={<Register />} />
+              </Routes>
+
             </Card>
           </Box>
         </Grid>
