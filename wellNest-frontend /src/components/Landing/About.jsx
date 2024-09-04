@@ -16,7 +16,7 @@ const AboutSection = () => {
             navigate your mental health journey.
           </p>
         </div>
-        <div className="mt-8 mr-10 lg:mt-0">
+        <div className="mt-8 lg:mr-10 lg:mt-0">
           <img 
             src={aboutImage} 
             alt="girl" 
