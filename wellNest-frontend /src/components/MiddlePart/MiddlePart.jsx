@@ -16,10 +16,10 @@ const MiddlePart = () => {
       <Card className="flex flex-col items-center p-5 rounded-b-md my-8" sx={{ backgroundColor: '#fffae0' }}>
         <div className='flex items-center w-full mb-4'>
           <Avatar className='flex flex-col items-center mr-4 cursor-pointer' />
-          <input readOnly className="outline-none w-[90%] rounded-full px-5 bg-transparent border border-[#3b4054]" type="text" />
+          <input readOnly className="outline-none w-[90%] rounded-full p-2 bg-transparent border border-[#3b4054]" type="text" />
         </div>
         <div className='flex justify-center space-x-9 mt-5'>
-          <div className='flex items-center'>
+          <div className='flex items-center gap-1'>
             <IconButton color='primary' onClick={handleOpenCreatePostModel}>
               <ImageIcon />
             </IconButton>
@@ -27,7 +27,7 @@ const MiddlePart = () => {
             <span>media</span>
           </div>
 
-          <div className='flex items-center'>
+          <div className='flex items-center gap-1'>
             <IconButton color='primary' onClick={handleOpenCreatePostModel}>
               <VideocamIcon />
             </IconButton>
@@ -35,7 +35,7 @@ const MiddlePart = () => {
             <span>video</span>
           </div>
 
-          <div className='flex items-center'>
+          <div className='flex items-center gap-1'>
             <IconButton color='primary' onClick={handleOpenCreatePostModel}>
               <ArticleIcon />
             </IconButton>

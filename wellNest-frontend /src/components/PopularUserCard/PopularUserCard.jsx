@@ -16,8 +16,8 @@ const PopularUserCard = () => {
           <Button 
             size='small' 
             sx={{ 
-              color: '#1DA1F2',  // Blue color for the "Follow" button
-              textTransform: 'capitalize',  // Optional: makes the text more readable
+              color: '#1DA1F2',  
+              textTransform: 'capitalize',  
             }}
           >
             Follow
@@ -27,10 +27,10 @@ const PopularUserCard = () => {
         subheader="maybesrishti"
         sx={{
           '& .MuiCardHeader-title': {
-            color: '#5a3825',  // Dark brown color for the title
+            color: '#5a3825',  
           },
           '& .MuiCardHeader-subheader': {
-            color: '#5a3825',  // Dark brown color for the subheader
+            color: '#5a3825',  
           },
         }}
       />

@@ -5,7 +5,7 @@ const AboutSection = () => {
   return (
     <section id="about" className="text-center bg-[#fffbeb]">
       <div className="flex flex-col lg:flex-row justify-between items-center">
-        <div className="max-w-3xl mx-auto px-4">
+        <div className="max-w-xl xl:max-w-3xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-[#78350f] mb-4">
             About WellNest
           </h2>
@@ -16,11 +16,11 @@ const AboutSection = () => {
             navigate your mental health journey.
           </p>
         </div>
-        <div className="mt-8 lg:mt-0 lg:ml-6">
+        <div className="mt-8 mr-10 lg:mt-0">
           <img 
             src={aboutImage} 
             alt="girl" 
-            className="w-full max-w-xs lg:max-w-sm h-auto mx-auto rounded-lg shadow-lg object-cover"
+            className="w-full max-w-lg lg:max-w-sm h-auto mx-auto rounded-lg shadow-lg object-cover"
           />
         </div>
       </div>
