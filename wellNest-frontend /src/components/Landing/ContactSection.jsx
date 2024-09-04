@@ -1,16 +1,23 @@
-import React from 'react';
+import React from "react";
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 const ContactSection = () => {
   return (
-    <section id="contact" className="py-16 text-white text-center">
+    <section id="contact" className="text-center bg-[#fffbeb] mb-8">
       <div className="max-w-4xl mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-4">Get In Touch</h2>
-        <p className="mb-8">We'd love to hear from you! Whether you have a question or need support, our team is here to help.</p>
-        <div className="space-y-4">
-          <input type="text" placeholder="Your Name" className="w-full p-3 rounded-lg text-black"/>
-          <input type="email" placeholder="Your Email" className="w-full p-3 rounded-lg text-black"/>
-          <textarea placeholder="Your Message" className="w-full p-3 rounded-lg text-black"></textarea>
-          <button className="bg-white text-amber-900 px-6 py-3 rounded-lg hover:bg-gray-200">Send Message</button>
+        <h2 className="text-3xl font-bold text-[#78350f] mb-4">Get In Touch</h2>
+        <p className="text-gray-700 mb-8">
+          We'd love to hear from you! Drop us an email and we’ll get back to you as soon as possible.
+        </p>
+        <div className="relative w-full max-w-md mx-auto space-y-4">
+          <input
+            type="email"
+            placeholder="Your Email"
+            className="w-full p-3 pl-12 pr-16 border text-left border-[#78350f] rounded-lg bg-[#78350f] text-[#fffbeb] placeholder-[#fffbeb] focus:border-[#fffbeb] focus:ring-0"
+          />
+          <div className="absolute inset-y-0 right-0 flex items-center pb-3 pr-5 transition-transform duration-300 hover:translate-x-2">
+            <ArrowForwardIcon className="text-[#fffbeb]" />
+          </div>
         </div>
       </div>
     </section>

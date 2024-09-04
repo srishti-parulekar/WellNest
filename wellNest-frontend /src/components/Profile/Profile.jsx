@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 const ProfilePage = () => {
-    const { id } = useParams(); // Correct hook usage
+    const { id } = useParams(); 
     return (
         <div className='py-10 w-[70%]'>
             <div className='rounded-md'>

@@ -6,7 +6,7 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color: #78350f;
   background-color: #fffbeb;
 
   font-synthesis: none;
@@ -20,7 +20,7 @@ h1 {
   line-height: 1.1;
 }
 
-html{
+html {
   scroll-behavior: smooth;
 }
 
@@ -31,17 +31,52 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
 }
 
 button:hover {
-  border-color: #646cff;
+  border-color: #5a2e0f;
 }
+
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: 2px solid #fffbeb;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(255, 251, 235, 0.5);
+}
+
+input {
+  all: unset;
+  display: inline-block;
+  box-sizing: border-box;
+  border-radius: 4px;
+  font: inherit;
+  line-height: normal;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: 1px solid #78350f;
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: #78350f;
+  color: #fffbeb;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input::placeholder {
+  color: #fffbeb;
+}
+
+input:focus {
+  border-color: #fffbeb;
+  box-shadow: 0 0 0 2px rgba(255, 251, 235, 0.5);
+}
+
+section {
+  margin-inline: 3rem;
+  margin-top: 8rem;
+  padding-bottom: 3rem;
 }
 
 @media (prefers-color-scheme: light) {
@@ -50,12 +85,13 @@ button:focus-visible {
     background-color: #ffffff;
   }
   a:hover {
-    color: #747bff;
+    color: #fffbeb;
   }
   button {
     background-color: #f9f9f9;
   }
 }
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
