@@ -12,9 +12,8 @@ const HeroSection = () => {
           className="bg-amber-900 px-6 py-3 text-[#fffbeb] rounded-lg hover:bg-amber-800 transition delay-5000">
           Get Started
         </button>
-        <button
-          className="text-amber-900 px-6 py-3 bg-[#fffbeb] rounded-lg border border-amber-900 hover:bg-[#fef7e8] transition duration-5000">
-          Learn More
+        <button className="text-amber-900 px-6 py-3 bg-[#fffbeb] rounded-lg border border-amber-900 hover:bg-[#fef7e8] transition duration-5000">
+          <a href="#about" >Learn More</a>
         </button>
       </div>
     </section>
