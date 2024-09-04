@@ -17,7 +17,7 @@ const HomePage = () => {
                         <Sidebar />
                     </div>
                 </Grid>
-                <Grid item xs={12} lg={6} className='px-5'>
+                <Grid item xs={12} lg={6} className='px-1'>
                     <Routes>
                         <Route path="/" element={<MiddlePart />} />
                         <Route path="/profile/:id" element={<ProfilePage />} />
@@ -25,7 +25,7 @@ const HomePage = () => {
                 </Grid>
                 <Grid item xs={12} lg={3}>
                     <div className="sticky top-0 w-full">
-                        {/* <RightPart /> */}
+                        {<RightPart />}
                     </div>
                 </Grid>
             </Grid>

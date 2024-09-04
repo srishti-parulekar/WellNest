@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 const SearchUser = () => {
   return (
-    <div>SearchUser</div>
-  )
+    <div className='text-[#5a3825]'>SearchUser</div>
+  );
 }
 
-export default SearchUser
+export default SearchUser;
