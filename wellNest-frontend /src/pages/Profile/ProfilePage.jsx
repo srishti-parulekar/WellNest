@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Avatar, Box, Tabs, Tab, Button } from '@mui/material';
+import { Avatar, Box, Tabs, Tab, Button, Card } from '@mui/material';
 import PostCard from '../../components/Post/PostCard';
 
 const tabs = [
@@ -10,21 +10,21 @@ const tabs = [
     { value: "repost", name: "Reposts" }
 ];
 
-
 const posts = [1, 1, 1, 1, 1];
 
+const savedPost = [1, 1, 1];
+const BlogCard = () => <div>Blog Card</div>;
 
 const ProfilePage = () => {
     const { id } = useParams(); 
     const [value, setValue] = React.useState('post'); // State for managing active tab
-
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
 
     return (
-        <div className='p-8 w-full'>
+        <Card className='p-8 w-full' style={{ backgroundColor: '#fff6cc' }}>
             <div className='rounded-md'>
                 
                 <div className='h-[15rem]'>
@@ -85,21 +85,36 @@ const ProfilePage = () => {
 
                     
                     <div className='flex justify-center'>
-                        {value === "post" && (
+                        {value === "post" ? (
                             <div className='space-y-5 w-[70%] my-10'>
-                                {posts.map((item, index) => 
-                                    <div key={index} className='border border-slate-500'>
-                                        
+                                {posts.map((item, index) => (
+                                    <div key={index} className='border border-slate-100 rounded-md'>   
                                         <PostCard />
                                     </div>
-                                )}
+                                ))}
                             </div>
-                        )}
+                        ) : value === "repost" ? (
+                            <div className='space-y-5 w-[70%] my-10'>
+                                {posts.map((item, index) => (
+                                    <div key={index} className='border border-slate-100 rounded-md'>   
+                                        <PostCard />
+                                    </div>
+                                ))}
+                            </div>
+                        ) : value === "liked" ? (
+                            <div className='space-y-5 w-[70%] my-10'>
+                                {posts.map((item, index) => (
+                                    <div key={index} className='border border-slate-100 rounded-md'>   
+                                        <PostCard />
+                                    </div>
+                                ))}
+                            </div>
+                        ) : null}
                     </div>
                 </section>
             </div>
-        </div>
+        </Card>
     );
-}
+};
 
 export default ProfilePage;
