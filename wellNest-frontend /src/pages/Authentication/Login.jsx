@@ -1,14 +1,13 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React from "react";
-import { TextField, Box } from "@mui/material";
+import { TextField, Box, Button } from "@mui/material";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { loginUserAction } from "../../redux/Auth/auth.action";
+import { useNavigate } from 'react-router-dom';
 
-// Initial values for the form
 const initialValues = { email: "", password: "" };
 
-// Validation schema using Yup
 const validationSchema = Yup.object({
   email: Yup.string()
     .email("Invalid email address")
@@ -21,13 +20,15 @@ const validationSchema = Yup.object({
 const Login = () => {
   const dispatch = useDispatch();
 
-  // Handle form submission
   const handleSubmit = (values) => {
     console.log("Form submitted with values:", values);
     dispatch(loginUserAction({ data: values }));
   };
 
+  const navigate =useNavigate();
+
   return (
+    <>
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
@@ -114,6 +115,11 @@ const Login = () => {
         </Form>
       )}
     </Formik>
+    <div className="flex gap-2 justify-center items-center pt-5">
+      <p>Don't have an account?</p>
+      <Button sx={{color:'#78350f'}} onClick={()=>navigate("/auth/register")}>Register</Button>
+    </div>
+    </>
   );
 };
 

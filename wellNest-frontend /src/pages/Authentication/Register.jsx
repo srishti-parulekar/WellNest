@@ -12,6 +12,7 @@ import {
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { registerUserAction } from "../../redux/Auth/auth.action";
+import { useNavigate } from 'react-router-dom';
 
 const initialValues = {
   firstName: "",
@@ -41,229 +42,242 @@ const Register = () => {
     dispatch(registerUserAction({ data: values }));
   };
 
+  const navigate =useNavigate();
+
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={handleSubmit}
-    >
-      {({ setFieldValue }) => (
-        <Form className="space-y-5 p-5 max-w-md mx-auto bg-white rounded">
-          <Box mb={2}>
-            <Field
-              name="firstName"
-              placeholder="First Name"
-              as={TextField}
-              type="text"
-              variant="outlined"
-              fullWidth
-              label="First Name"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "#78350f",
+    <>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        {({ setFieldValue }) => (
+          <Form className="space-y-5 p-5 max-w-md mx-auto bg-white rounded">
+            <Box mb={2}>
+              <Field
+                name="firstName"
+                placeholder="First Name"
+                as={TextField}
+                type="text"
+                variant="outlined"
+                fullWidth
+                label="First Name"
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "#78350f",
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "#78350f",
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#78350f",
+                    },
                   },
-                  "&:hover fieldset": {
-                    borderColor: "#78350f",
+                  "& .MuiInputLabel-root": {
+                    color: "#78350f",
                   },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "#78350f",
+                  "& .MuiInputLabel-root.Mui-focused": {
+                    color: "#78350f",
                   },
-                },
-                "& .MuiInputLabel-root": {
-                  color: "#78350f",
-                },
-                "& .MuiInputLabel-root.Mui-focused": {
-                  color: "#78350f",
-                },
-              }}
-            />
-            <ErrorMessage
-              name="firstName"
-              component="div"
-              className="text-red-500"
-            />
-          </Box>
+                }}
+              />
+              <ErrorMessage
+                name="firstName"
+                component="div"
+                className="text-red-500"
+              />
+            </Box>
 
-          <Box mb={2}>
-            <Field
-              name="lastName"
-              placeholder="Last Name"
-              as={TextField}
-              type="text"
-              variant="outlined"
-              fullWidth
-              label="Last Name"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "#78350f",
+            <Box mb={2}>
+              <Field
+                name="lastName"
+                placeholder="Last Name"
+                as={TextField}
+                type="text"
+                variant="outlined"
+                fullWidth
+                label="Last Name"
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "#78350f",
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "#78350f",
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#78350f",
+                    },
                   },
-                  "&:hover fieldset": {
-                    borderColor: "#78350f",
+                  "& .MuiInputLabel-root": {
+                    color: "#78350f",
                   },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "#78350f",
+                  "& .MuiInputLabel-root.Mui-focused": {
+                    color: "#78350f",
                   },
-                },
-                "& .MuiInputLabel-root": {
-                  color: "#78350f",
-                },
-                "& .MuiInputLabel-root.Mui-focused": {
-                  color: "#78350f",
-                },
-              }}
-            />
-            <ErrorMessage
-              name="lastName"
-              component="div"
-              className="text-red-500"
-            />
-          </Box>
+                }}
+              />
+              <ErrorMessage
+                name="lastName"
+                component="div"
+                className="text-red-500"
+              />
+            </Box>
 
-          <Box mb={2}>
-            <Field
-              name="email"
-              placeholder="Email"
-              as={TextField}
-              type="email"
-              variant="outlined"
-              fullWidth
-              label="Email"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "#78350f",
+            <Box mb={2}>
+              <Field
+                name="email"
+                placeholder="Email"
+                as={TextField}
+                type="email"
+                variant="outlined"
+                fullWidth
+                label="Email"
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "#78350f",
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "#78350f",
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#78350f",
+                    },
                   },
-                  "&:hover fieldset": {
-                    borderColor: "#78350f",
+                  "& .MuiInputLabel-root": {
+                    color: "#78350f",
                   },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "#78350f",
+                  "& .MuiInputLabel-root.Mui-focused": {
+                    color: "#78350f",
                   },
-                },
-                "& .MuiInputLabel-root": {
-                  color: "#78350f",
-                },
-                "& .MuiInputLabel-root.Mui-focused": {
-                  color: "#78350f",
-                },
-              }}
-            />
-            <ErrorMessage
-              name="email"
-              component="div"
-              className="text-red-500"
-            />
-          </Box>
+                }}
+              />
+              <ErrorMessage
+                name="email"
+                component="div"
+                className="text-red-500"
+              />
+            </Box>
 
-          <Box mb={2}>
-            <Field
-              name="password"
-              placeholder="Password"
-              as={TextField}
-              type="password"
-              variant="outlined"
-              fullWidth
-              label="Password"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "#78350f",
+            <Box mb={2}>
+              <Field
+                name="password"
+                placeholder="Password"
+                as={TextField}
+                type="password"
+                variant="outlined"
+                fullWidth
+                label="Password"
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "#78350f",
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "#78350f",
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#78350f",
+                    },
                   },
-                  "&:hover fieldset": {
-                    borderColor: "#78350f",
+                  "& .MuiInputLabel-root": {
+                    color: "#78350f",
                   },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "#78350f",
+                  "& .MuiInputLabel-root.Mui-focused": {
+                    color: "#78350f",
                   },
-                },
-                "& .MuiInputLabel-root": {
-                  color: "#78350f",
-                },
-                "& .MuiInputLabel-root.Mui-focused": {
-                  color: "#78350f",
-                },
-              }}
-            />
-            <ErrorMessage
-              name="password"
-              component="div"
-              className="text-red-500"
-            />
-          </Box>
+                }}
+              />
+              <ErrorMessage
+                name="password"
+                component="div"
+                className="text-red-500"
+              />
+            </Box>
 
-          <Box mb={2}>
-            <FormControl component="fieldset" fullWidth>
-              <RadioGroup
-                aria-labelledby="gender-radio-buttons-group-label"
+            <Box mb={2}>
+              <FormControl component="fieldset" fullWidth>
+                <RadioGroup
+                  aria-labelledby="gender-radio-buttons-group-label"
+                  name="gender"
+                  onChange={(event) =>
+                    setFieldValue("gender", event.currentTarget.value)
+                  }
+                  row
+                >
+                  <FormControlLabel
+                    value="female"
+                    control={
+                      <Radio
+                        sx={{
+                          color: "#78350f",
+                          "&.Mui-checked": {
+                            color: "#78350f",
+                          },
+                        }}
+                      />
+                    }
+                    label="Female"
+                  />
+                  <FormControlLabel
+                    value="male"
+                    control={
+                      <Radio
+                        sx={{
+                          color: "#78350f",
+                          "&.Mui-checked": {
+                            color: "#78350f",
+                          },
+                        }}
+                      />
+                    }
+                    label="Male"
+                  />
+                  <FormControlLabel
+                    value="other"
+                    control={
+                      <Radio
+                        sx={{
+                          color: "#78350f",
+                          "&.Mui-checked": {
+                            color: "#78350f",
+                          },
+                        }}
+                      />
+                    }
+                    label="Other"
+                  />
+                </RadioGroup>
+              </FormControl>
+              <ErrorMessage
                 name="gender"
-                onChange={(event) =>
-                  setFieldValue("gender", event.currentTarget.value)
-                }
-                row
-              >
-                <FormControlLabel
-                  value="female"
-                  control={
-                    <Radio
-                      sx={{
-                        color: "#78350f",
-                        "&.Mui-checked": {
-                          color: "#78350f",
-                        },
-                      }}
-                    />
-                  }
-                  label="Female"
-                />
-                <FormControlLabel
-                  value="male"
-                  control={
-                    <Radio
-                      sx={{
-                        color: "#78350f",
-                        "&.Mui-checked": {
-                          color: "#78350f",
-                        },
-                      }}
-                    />
-                  }
-                  label="Male"
-                />
-                <FormControlLabel
-                  value="other"
-                  control={
-                    <Radio
-                      sx={{
-                        color: "#78350f",
-                        "&.Mui-checked": {
-                          color: "#78350f",
-                        },
-                      }}
-                    />
-                  }
-                  label="Other"
-                />
-              </RadioGroup>
-            </FormControl>
-            <ErrorMessage
-              name="gender"
-              component="div"
-              className="text-red-500"
-            />
-          </Box>
+                component="div"
+                className="text-red-500"
+              />
+            </Box>
 
-          <button
-            type="submit"
-            variant="contained"
-            className="w-full p-2 bg-amber-900 text-white rounded"
-          >
-            Register
-          </button>
-        </Form>
-      )}
-    </Formik>
+            <button
+              type="submit"
+              variant="contained"
+              className="w-full p-2 bg-amber-900 text-white rounded"
+            >
+              Register
+            </button>
+          </Form>
+        )}
+      </Formik>
+      <div className="flex gap-2 justify-center items-center pt-1">
+        <p>Already have an account?</p>
+        <Button
+          sx={{ color: "#78350f" }}
+          onClick={() => navigate("/auth/login")}
+        >
+          Login
+        </Button>
+      </div>
+    </>
   );
 };
 

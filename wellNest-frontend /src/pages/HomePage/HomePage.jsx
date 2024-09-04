@@ -18,7 +18,7 @@ const HomePage = () => {
                         <Sidebar />
                     </div>
                 </Grid>
-                <Grid item xs={12} lg={isProfilePage ? 9 : 6} className='px-1'>
+                <Grid item xs={12} lg={isProfilePage ? 9 : 6}>
                     <Routes>
                         <Route path="/" element={<MiddlePart />} />
                         <Route path="/profile/:id" element={<ProfilePage />} />  
