@@ -10,20 +10,20 @@ const HomePage = () => {
     const location = useLocation();
 
     return (
-        <div className='px-20'>
+        <div className='px-0'>
             <Grid container spacing={2}>
-                <Grid item xs={0} lg={3}>
+                <Grid item xs={12} lg={3}>
                     <div className='sticky top-0'>
                         <Sidebar />
                     </div>
                 </Grid>
-                <Grid item xs={12} lg={location.pathname === "/" ? 6 : 9} className='px-5 flex justify-center'>
+                <Grid item xs={12} lg={6} className='px-5'>
                     <Routes>
                         <Route path="/" element={<MiddlePart />} />
                         <Route path="/profile/:id" element={<ProfilePage />} />
                     </Routes>
                 </Grid>
-                <Grid item xs={0} lg={3} className='relative'>
+                <Grid item xs={12} lg={3}>
                     <div className="sticky top-0 w-full">
                         <RightPart />
                     </div>

@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { Card } from "@mui/material";
 
 const Sidebar = () => {
   
@@ -20,7 +21,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="card h-screen flex flex-col justify-between py-5">
+    <Card className="card h-screen flex flex-col justify-between py-5" style={{ backgroundColor: '#FFEDDB' }}>
       <div className="space-y-8 pl-5 pt-5">
         <div>
           <span className="logo font-semi-bold text-3xl">WellNest</span>
@@ -74,10 +75,12 @@ const Sidebar = () => {
             }}
           >
             <MenuItem onClick={handleClose}>Logout</MenuItem>
+            <MenuItem onClick={handleClose}>My Profile</MenuItem>
+            <MenuItem onClick={handleClose}>Account Details</MenuItem>
           </Menu>
         </div>
       </div>
-    </div>
+    </Card>
   );
 };
 
