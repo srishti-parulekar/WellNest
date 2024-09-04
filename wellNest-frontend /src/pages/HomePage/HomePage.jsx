@@ -25,7 +25,7 @@ const HomePage = () => {
                 </Grid>
                 <Grid item xs={12} lg={3}>
                     <div className="sticky top-0 w-full">
-                        <RightPart />
+                        {/* <RightPart /> */}
                     </div>
                 </Grid>
             </Grid>

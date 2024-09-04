@@ -13,7 +13,7 @@ const MiddlePart = () => {
   }
   return (
     <div className='px-5'>
-      <Card className="flex flex-col items-center p-5 rounded-b-md my-8" sx={{ backgroundColor: '#FFEDDB' }}>
+      <Card className="flex flex-col items-center p-5 rounded-b-md my-8" sx={{ backgroundColor: '#fffae0' }}>
         <div className='flex items-center w-full mb-4'>
           <Avatar className='flex flex-col items-center mr-4 cursor-pointer' />
           <input readOnly className="outline-none w-[90%] rounded-full px-5 bg-transparent border border-[#3b4054]" type="text" />

@@ -21,7 +21,7 @@ const Sidebar = () => {
   };
 
   return (
-    <Card className="card h-screen flex flex-col justify-between py-5" style={{ backgroundColor: '#FFEDDB' }}>
+    <Card className="card h-screen flex flex-col justify-between py-5" style={{ backgroundColor: '#fffae0' }}>
       <div className="space-y-8 pl-5 pt-5">
         <div>
           <span className="logo font-semi-bold text-3xl">WellNest</span>

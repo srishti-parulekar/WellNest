@@ -14,7 +14,7 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 const PostCard = () => {
     return (
-        <Card sx={{ backgroundColor: '#FFEDDB' }} className=''>
+        <Card sx={{ backgroundColor: '#fffae0' }} className=''>
             <CardHeader
                 avatar={
                     <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">

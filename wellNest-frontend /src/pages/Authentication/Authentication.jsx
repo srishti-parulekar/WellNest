@@ -17,8 +17,8 @@ const Authentication = () => {
           <Box px={{ xs: 2, md: 5 }} py={{ xs: 4, md: 6 }} width="100%" maxWidth={500}>
             <Card className="card p-8 shadow-lg">
               <div className="flex flex-col items-center mb-5 space-y-1">
-                <h1 className="logo text-center font-bold text-3xl">WellNest</h1>
-                <p className="text-center text-sm w-[70%]">Your Safe Space for Mental Health</p>
+                <h1 className="logo text-center font-bold text-amber-900 text-3xl">WellNest</h1>
+                <p className="text-center text-sm text-amber-900 w-[70%]">Your Safe Space for Mental Health</p>
               </div>
 
               <Routes>
