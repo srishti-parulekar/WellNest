@@ -8,6 +8,7 @@ import RightPart from '../../components/RightPart/RightPart';
 
 const HomePage = () => {
     const location = useLocation();
+    const isProfilePage = location.pathname.startsWith('/home/profile');
 
     return (
         <div className='px-0'>
@@ -17,17 +18,19 @@ const HomePage = () => {
                         <Sidebar />
                     </div>
                 </Grid>
-                <Grid item xs={12} lg={6} className='px-1'>
+                <Grid item xs={12} lg={isProfilePage ? 9 : 6} className='px-1'>
                     <Routes>
                         <Route path="/" element={<MiddlePart />} />
-                        <Route path="/profile/:id" element={<ProfilePage />} />
+                        <Route path="/profile/:id" element={<ProfilePage />} />  
                     </Routes>
                 </Grid>
-                <Grid item xs={12} lg={3}>
-                    <div className="sticky top-0 w-full">
-                        {<RightPart />}
-                    </div>
-                </Grid>
+                {!isProfilePage && (
+                    <Grid item xs={12} lg={3}>
+                        <div className="sticky top-0 w-full">
+                            <RightPart />
+                        </div>
+                    </Grid>
+                )}
             </Grid>
         </div>
     );
