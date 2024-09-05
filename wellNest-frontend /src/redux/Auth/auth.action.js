@@ -6,7 +6,10 @@ import {
     LOGIN_REQUEST,
     REGISTER_FAILURE,
     REGISTER_REQUEST,
-    REGISTER_SUCCESS
+    REGISTER_SUCCESS,
+    GET_PROFILE_SUCCESS,
+    GET_PROFILE_FAILURE,
+    GET_PROFILE_REQUEST
 } from "./auth.actionType";
 
 export const loginUserAction = (loginData) => async (dispatch) => {
@@ -50,5 +53,26 @@ export const registerUserAction = (registerData) => async (dispatch) => {
     } catch (error) {
         console.log("Network Error: ", error);
         dispatch({ type: REGISTER_FAILURE, payload: error.response?.data?.message || error.message });
+    }
+};
+
+export const getProfileAction = (jwt) => async (dispatch) => {
+    dispatch({ type: GET_PROFILE_REQUEST });
+
+    try {
+        const { data } = await axios.post(
+            `${API_BASE_URL}/auth/users/profile`,
+            {
+                headers: {
+                    Authorization: `Bearer ${jwt}`,
+                },
+            });
+
+        console.log("profile-------", data);
+        dispatch({ type: GET_PROFILE_SUCCESS, payload: data });
+
+    } catch (error) {
+        console.log("Network Error: ", error);
+        dispatch({ type: GET_PROFILE_FAILURE, payload: error.response?.data?.message || error.message });
     }
 };
