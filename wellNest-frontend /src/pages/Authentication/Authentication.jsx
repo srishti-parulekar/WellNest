@@ -45,8 +45,8 @@ const Authentication = () => {
 
                 <Routes>
                   <Route path="/" element={<Login />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/register" element={<Register />} />
+                  <Route path="/signin" element={<Login />} />
+                  <Route path="/signup" element={<Register />} />
                 </Routes>
               </Card>
             </Box>
@@ -70,8 +70,8 @@ const Authentication = () => {
 
                 <Routes>
                   <Route path="/" element={<Login />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/register" element={<Register />} />
+                  <Route path="/signin" element={<Login />} />
+                  <Route path="/signup" element={<Register />} />
                 </Routes>
               </Card>
             </Box>

@@ -32,7 +32,7 @@ const Navbar = () => {
             <div className="border-l-2 border-[#fffbeb] h-6 mx-4"></div>
 
             <button
-              onClick={() => navigate("/auth/login")} // Use navigate for routing
+              onClick={() => navigate("/auth/signin")} // Use navigate for routing
               className="text-amber-900 px-6 py-3 bg-[#fffbeb] rounded-lg border border-amber-900 hover:bg-[#fef7e8] transition duration-5000"
             >
               Login

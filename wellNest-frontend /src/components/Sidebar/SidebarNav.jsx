@@ -10,17 +10,17 @@ export const navigationMenu = [
     {
         title: "Home",
         icon: <HomeIcon />,
-        path: "/"
+        path: "/home"
     },
     {
         title: "Notifications",
         icon: <NotificationsIcon />,
-        path: "/"
+        path: "/notifications"
     },
     {
         title: "Message",
         icon: <MessageIcon />,
-        path: "/"
+        path: "/message"
     },
     {
         title: "List",
@@ -35,6 +35,6 @@ export const navigationMenu = [
     {
         title: "Profile",
         icon: <PersonIcon />,
-        path: "/"
+        path: "/profile"
     }
 ];

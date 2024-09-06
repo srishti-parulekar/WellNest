@@ -6,9 +6,13 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Card } from "@mui/material";
+import { useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
-  
+  const auth = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -20,6 +24,18 @@ const Sidebar = () => {
     setAnchorEl(null);
   };
 
+  const handleNavigate = (item) => {
+    if (item.title === "Profile") {
+      navigate(`/home/profile/${auth.user?.userid}`);
+    } else if (item.title === "Home") {
+      navigate('/home');
+    } else {
+      navigate(item.path);
+    }
+  };
+  
+  
+
   return (
     <Card className="card h-screen flex flex-col justify-between py-5" style={{ backgroundColor: '#78350f' , color:'#fffae0'}}>
       <div className="space-y-8 pl-5 pt-5">
@@ -27,8 +43,12 @@ const Sidebar = () => {
           <span className="logo font-semi-bold text-3xl">WellNest</span>
         </div>
         <div className="space-y-8">
-          {navigationMenu.map((item, index) => (
-            <div key={index} className="cursor-pointer flex space-x-3 items-center text-[#fffae0]">
+          {navigationMenu.map((item) => (
+            <div 
+              key={item.title} // Added unique key prop
+              onClick={() => handleNavigate(item)} 
+              className="cursor-pointer flex space-x-3 items-center text-[#fffae0]"
+            >
               {item.icon}
               <p className="text-xl">{item.title}</p>
             </div>
@@ -41,8 +61,8 @@ const Sidebar = () => {
           <div className="flex items-center space-x-3">
             <Avatar src="" />
             <div>
-              <p className="font-bold">Srishti Parulekar</p>
-              <p className="opacity-70">@srishtiParulekar</p>
+              <p className="font-bold">{ auth.user?.firstName + ' ' + auth.user?.lastName }</p>
+              <p className="opacity-70">{auth.user?.firstName.toLowerCase() + "_" + auth.user?.lastName.toLowerCase()}</p>
             </div>
           </div>
           <Button

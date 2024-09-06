@@ -17,7 +17,7 @@ const HeroSection = () => {
       </p>
       <div className="flex justify-center space-x-4">
         <button
-          onClick={() => navigate("/auth/register")}
+          onClick={() => navigate("/auth/signup")}
           className="bg-amber-900 px-6 py-3 text-[#fffbeb] rounded-lg hover:bg-amber-800 transition delay-5000"
         >
           Get Started

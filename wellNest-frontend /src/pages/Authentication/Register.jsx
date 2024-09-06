@@ -272,7 +272,7 @@ const Register = () => {
         <p>Already have an account?</p>
         <Button
           sx={{ color: "#78350f" }}
-          onClick={() => navigate("/auth/login")}
+          onClick={() => navigate("/auth/signin")}
         >
           Login
         </Button>
