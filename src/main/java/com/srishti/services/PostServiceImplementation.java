@@ -49,10 +49,7 @@ public class PostServiceImplementation implements PostService{
 	public String deletePost(Integer postid, Integer userid) throws Exception {
 		
 		Post post = findPostByPostId(postid);
-		
-		//User user = userService.findUserById(userid);
-		
-		//should not be able to delete someone else s post; 
+
 		if(post.getUser().getUserid()!=userid) {
 			
 			throw new Exception ("you cannot delete someone else's post. ");

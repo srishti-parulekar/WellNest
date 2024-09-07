@@ -49,7 +49,7 @@ public class PostController {
 	}
 
 
-	@GetMapping("/posts/{postid}")
+	@GetMapping("/api/posts/{postid}")
 	public ResponseEntity<Post> findPostByIdHandler(@PathVariable Integer postid) throws Exception{
 
 		Post post = postService.findPostByPostId(postid);
@@ -58,7 +58,7 @@ public class PostController {
 	}
 
 
-	@GetMapping("/posts/user/{userid}")
+	@GetMapping("/api/posts/user/{userid}")
 	public ResponseEntity<List<Post>> findUsersPost(@PathVariable Integer userid){
 
 		List<Post> posts = postService.findPostByUserId(userid);
@@ -66,7 +66,7 @@ public class PostController {
 		return new ResponseEntity<List<Post>>(posts,HttpStatus.OK);
 	}
 
-	@GetMapping("/posts")
+	@GetMapping("/api/posts")
 	public ResponseEntity<List<Post>> findAllPosts(){
 
 		List<Post> posts = postService.findAllPosts();
@@ -75,7 +75,7 @@ public class PostController {
 	}
 
 
-	@PutMapping("/posts/save/{postid}/user/{userid}")
+	@PutMapping("/api/posts/save/{postid}/user/{userid}")
 	public ResponseEntity<Post> savePost(@PathVariable Integer postid, @PathVariable Integer userid) throws Exception{
 
 		Post post = postService.savePost(postid,userid);
