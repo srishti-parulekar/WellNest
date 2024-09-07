@@ -12,7 +12,10 @@ import {
     GET_PROFILE_REQUEST,
     UPDATE_PROFILE_SUCCESS,
     UPDATE_PROFILE_FAILURE,
-    UPDATE_PROFILE_REQUEST 
+    UPDATE_PROFILE_REQUEST, 
+    SEARCH_USER_REQUEST,
+    SEARCH_USER_SUCCESS,
+    SEARCH_USER_FAILURE
   } from "./auth.actionType";
   
 export const loginUserAction = (loginData) => async (dispatch) => {
@@ -112,3 +115,22 @@ export const updateProfileAction = (reqData) => async (dispatch) => {
     }
 };
 
+export const searchUserAction = (query) => async (dispatch) => {
+    dispatch({ type: SEARCH_USER_REQUEST });
+
+    try {
+        const token = localStorage.getItem("jwt"); 
+        const { data } = await axios.get(`${API_BASE_URL}/api/users/search?query=${query}`, {
+            headers: {
+                "Authorization": `Bearer ${token}` 
+            }
+        });
+
+        console.log("search user-------", data);
+        dispatch({ type: SEARCH_USER_SUCCESS, payload: data });
+
+    } catch (error) {
+        console.log("Network Error: ", error);
+        dispatch({ type: SEARCH_USER_FAILURE, payload: error.response?.data?.message || error.message });
+    }
+};

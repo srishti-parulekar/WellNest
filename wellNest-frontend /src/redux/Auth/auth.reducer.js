@@ -9,7 +9,8 @@ import {
     GET_PROFILE_REQUEST,
     GET_PROFILE_SUCCESS,
     UPDATE_PROFILE_SUCCESS,
-    UPDATE_PROFILE_FAILURE
+    UPDATE_PROFILE_FAILURE,
+    SEARCH_USER_SUCCESS
 } from "./auth.actionType";
 
 
@@ -17,7 +18,8 @@ const initialState = {
     jwt: null,
     error: null,
     loading: false,
-    user: null
+    user: null,
+    searchUser:[]
 }
 
 
@@ -38,6 +40,8 @@ export const authReducer = (state = initialState, action) => {
         case LOGIN_FAILURE:
             return { ...state, loading: false, error: action.payload }
 
+        case SEARCH_USER_SUCCESS:
+            return {...state,searchUser:action.payload, error: null, loading: false }
         default:
             return state;
     }
