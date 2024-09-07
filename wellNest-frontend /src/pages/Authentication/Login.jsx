@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { loginUserAction } from "../../redux/Auth/auth.action";
 import { useNavigate } from 'react-router-dom';
 import { ErrorMessage, Field, Form, Formik } from "formik";
+
 const initialValues = { email: "", password: "" };
 
 const validationSchema = Yup.object({
@@ -18,13 +19,18 @@ const validationSchema = Yup.object({
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();  // Added useNavigate for redirecting after login
 
   const handleSubmit = (values) => {
     console.log("Form submitted with values:", values);
-    dispatch(loginUserAction(values));  // Remove { data: values }
+    dispatch(loginUserAction(values))
+      .then(() => {
+        navigate('/home');  // Navigate to /home after successful login
+      })
+      .catch((error) => {
+        console.error("Login failed:", error);  // Handle any errors if necessary
+      });
   };
-
-  const navigate = useNavigate();
 
   return (
     <>

@@ -25,7 +25,7 @@ import { isLikedByReqUser } from "../../utils/isLikedByReqUser";
 const PostCard = ({ item }) => {
   const [showComments, setShowComments] = useState(false);
   const dispatch = useDispatch();
-  const {post, auth} = useSelector(store=>store);
+  const { auth } = useSelector(store => store);
 
   const handleShowComments = () => setShowComments(!showComments);
 
@@ -53,12 +53,16 @@ const PostCard = ({ item }) => {
     dispatch(createCommentAction(reqData));
   };
 
+  if (!item || !item.user) {
+    return null; // Return null or a loading spinner if item is not available
+  }
+
   return (
-    <Card sx={{ backgroundColor: "#fffae0" }} className="">
+    <Card sx={{ backgroundColor: "#fffae0", borderRadius: '16px', boxShadow: 3 }}>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+          <Avatar sx={{ bgcolor: red[500], width: 40, height: 40 }} aria-label="recipe">
+            {item.user.firstName[0]}
           </Avatar>
         }
         action={
@@ -66,35 +70,32 @@ const PostCard = ({ item }) => {
             <MoreVertIcon />
           </IconButton>
         }
-        title={item.user.firstName + " " + item.user.lastName}
+        title={`${item.user.firstName || 'Unknown'} ${item.user.lastName || ''}`}
         subheader={
-          "@" +
-          item.user.firstName.toLowerCase() +
-          "_" +
-          item.user.lastName.toLowerCase()
+          `@${(item.user.firstName || '').toLowerCase()}_${(item.user.lastName || '').toLowerCase()}`
         }
+        sx={{ padding: 1.5 }}
       />
       <CardMedia
         component="img"
         height="194"
-        image={item.image}
+        image={item.image || 'default_image_url'} // Provide a default image URL
         alt="Post Image"
+        sx={{ objectFit: 'cover' }}
       />
       <CardContent>
         <Typography variant="body2" sx={{ color: "text.secondary" }}>
-          {item.caption}
+          {item.caption || 'No caption available'}
         </Typography>
       </CardContent>
       <CardActions className="flex justify-between" disableSpacing>
         <div>
           <IconButton onClick={handleLikePost}>
-            {isLikedByReqUser(auth.user.id, item)? <FavoriteIcon /> : <FavoriteBorderIcon />}
+            {isLikedByReqUser(auth.user?.id, item) ? <FavoriteIcon /> : <FavoriteBorderIcon />}
           </IconButton>
-
           <IconButton>
             <IosShareIcon />
           </IconButton>
-
           <IconButton onClick={handleShowComments}>
             <ChatBubbleIcon />
           </IconButton>
@@ -124,16 +125,18 @@ const PostCard = ({ item }) => {
           </div>
 
           <Divider />
-          {item.comments?.map((comment)=><div className="mx-3 space-y-2 my-5 text-xs">
-            <div className="flex items-center space-x-5">
-              <Avatar
-                sx={{ height: "2rem", width: "2rem", fontSize: "0.8rem" }}
-              >
-                {comment.user.firstName[0]}
-              </Avatar>
-              <p>{comment.content}</p>
+          {item.comments?.map((comment) => (
+            <div className="mx-3 space-y-2 my-5 text-xs" key={comment.id}>
+              <div className="flex items-center space-x-5">
+                <Avatar
+                  sx={{ height: "2rem", width: "2rem", fontSize: "0.8rem" }}
+                >
+                  {comment.user.firstName[0]}
+                </Avatar>
+                <p>{comment.content}</p>
+              </div>
             </div>
-          </div>)}
+          ))}
         </section>
       )}
     </Card>

@@ -10,19 +10,19 @@ const HomePage = () => {
     return (
         <div className='px-0'>
             <Grid container spacing={2}>
-                <Grid item xs={12} lg={3}>
+                <Grid item xs={12} lg={3} sx={{ display: { xs: 'none', lg: 'block' } }}>
                     <div className='sticky top-0'>
                         <Sidebar />
                     </div>
                 </Grid>
-                <Grid item xs={12} lg={9}>
+                <Grid item xs={12} lg={6} sx={{ display: 'flex', flexDirection: 'column' }}>
                     <Routes>
                         <Route path="/" element={<MiddlePart />} />
                         <Route path="profile/:id" element={<ProfilePage />} />
                     </Routes>
                     <Outlet />
                 </Grid>
-                <Grid item xs={12} lg={3}>
+                <Grid item xs={12} lg={3} sx={{ display: { xs: 'none', lg: 'block' } }}>
                     <div className="sticky top-0 w-full">
                         <RightPart />
                     </div>

@@ -58,16 +58,20 @@ export const getUsersPostAction = (userId) => async (dispatch) => {
 };
 
 
-export const likePostAction = (postId) => async (dispatch) => {
+export const likePostAction = (postid) => async (dispatch) => {
     dispatch({ type: LIKE_POST_REQUEST });
-  
+
     try {
-      const response = await axios.put(`/api/posts/like/${postId}`);
-      dispatch({ type: LIKE_POST_SUCCESS, payload: response.data });
+        const response = await api.put(`/api/posts/like/${postid}`);
+        dispatch({ type: LIKE_POST_SUCCESS, payload: response.data });
     } catch (error) {
-      dispatch({ type: LIKE_POST_FAILURE, payload: error.response.data });
+        console.error("Error liking post:", error); // Log detailed error info
+        dispatch({ 
+            type: LIKE_POST_FAILURE, 
+            payload: error.response ? error.response.data : error.message 
+        });
     }
-  };
+};
   
 export const createCommentAction = (reqData) => async (dispatch) => {
     dispatch({ type: CREATE_COMMENT_REQUEST });
