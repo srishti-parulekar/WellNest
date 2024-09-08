@@ -11,15 +11,24 @@ const ChatMessages = ({ item, currentUserId }) => {
       }`}
     >
       <Avatar
-        src={item.senderAvatar} 
-        className={`${isReqUserMessage ? "order-last" : "order-first"}`}
+        src={
+          item.avatar ||
+          "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+        }
       />
       <div
-        className={`rounded-lg p-2 ${
-          isReqUserMessage ? "bg-[#78350f] text-[#fffbeb]" : "bg-[#f1f5f9]"
-        }`}
+        className={`${
+          isReqUserMessage ? "bg-[#fffbeb]" : "bg-[#d1d5db]"
+        } p-3 rounded-lg max-w-[60%]`}
       >
-        {item.content}
+        {item.content && <p className="text-[#78350f]">{item.content}</p>}
+        {item.image && (
+          <img
+            src={item.image}
+            alt="Message attachment"
+            className="max-w-full mt-2"
+          />
+        )}
       </div>
     </div>
   );

@@ -19,17 +19,15 @@ const Message = () => {
   const [messages, setMessages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [newMessage, setNewMessage] = useState(""); // State for the new message input
+  const [newMessage, setNewMessage] = useState("");
 
   useEffect(() => {
     dispatch(getAllChats());
   }, [dispatch]);
 
-  console.log("chats----", message.chats);
-
   useEffect(() => {
     if (currentChat) {
-      setMessages(currentChat.message || []); 
+      setMessages(currentChat.message || []);
     }
   }, [currentChat]);
 
@@ -61,8 +59,8 @@ const Message = () => {
       image: selectedImage,
     };
     dispatch(createMessage(newMsg));
-    setSelectedImage(null); 
-    setNewMessage(""); 
+    setSelectedImage(null);
+    setNewMessage("");
   };
 
   return (
@@ -83,10 +81,10 @@ const Message = () => {
                 <div className="h-full space-y-4 mt-5 overflow-y-scroll hideScrollbar">
                   {message.chats.map((item) => (
                     <div
-                      key={item.chatid} 
+                      key={item.chatid}
                       onClick={() => {
                         setCurrentChat(item);
-                        setMessages(item.message || []); 
+                        setMessages(item.message || []);
                       }}
                     >
                       <UserChatCard chat={item} />
@@ -114,10 +112,10 @@ const Message = () => {
 
               <div className="hideScrollbar overflow-y-scroll h-[82vh] px-2 space-y-5">
                 {messages.length === 0 ? (
-                  <p>No messages to display</p> 
+                  <p>No messages to display</p>
                 ) : (
                   messages.map((item) => (
-                    <ChatMessages key={item.messageid} item={item} /> 
+                    <ChatMessages key={item.messageid} item={item} currentUserId={auth.user.id} />
                   ))
                 )}
               </div>
@@ -125,8 +123,8 @@ const Message = () => {
                 <div className="py-5 flex items-center justify-between space-x-5 px-5">
                   <div className="flex items-center space-x-3 border border-[#78350f] rounded-full flex-grow">
                     <input
-                      value={newMessage} // Bind input value to state
-                      onChange={(e) => setNewMessage(e.target.value)} // Update state on input change
+                      value={newMessage}
+                      onChange={(e) => setNewMessage(e.target.value)}
                       onKeyPress={(e) => {
                         if (e.key === "Enter" && newMessage.trim()) {
                           handleCreateMessage(newMessage);

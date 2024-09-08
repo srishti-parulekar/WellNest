@@ -15,8 +15,7 @@ const SearchUser2 = () => {
   };
 
   const handleClick = (userid) => {
-    const chat = { userid };
-    dispatch(createChat(chat));
+    dispatch(createChat({ userid }));
   };
 
   return (
@@ -30,27 +29,23 @@ const SearchUser2 = () => {
           type="text"
         />
       </div>
-
       {userName &&
         auth.searchUser.map((item) => (
           <Card
-            key={item.userid} 
+            key={item.userid}
             className="absolute z-10 top-[4.5rem] w-full max-w-md cursor-pointer"
             sx={{ color: "#78350f", backgroundColor: "#fffbeb" }}
+            onClick={() => handleClick(item.userid)}
           >
             <CardHeader
-              onClick={() => handleClick(item.userid)} 
               avatar={
                 <Avatar
-                  src={
-                    item.avatar ||
-                    "https://images.pexels.com/photos/678783/pexels-photo-678783.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                  }
+                  src={item.avatar || "https://images.pexels.com/photos/678783/pexels-photo-678783.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"}
                   alt="User Avatar"
                   sx={{ width: "3.5rem", height: "3.5rem" }}
                 />
               }
-              title={`${item.firstName} ${item.lastName}`} 
+              title={`${item.firstName} ${item.lastName}`}
               subheader={`@${item.firstName.toLowerCase()}_${item.lastName}`}
             />
           </Card>
