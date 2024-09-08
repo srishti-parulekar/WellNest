@@ -19,19 +19,22 @@ const initialState = {
     error: null,
     loading: false,
     user: null,
-    searchUser:[]
+    searchUser: []
 }
 
 
 export const authReducer = (state = initialState, action) => {
     switch (action.type) {
+        
         case LOGIN_REQUEST:
         case REGISTER_REQUEST:
         case GET_PROFILE_REQUEST:
             return { ...state, loading: true, error: null }
+
         case GET_PROFILE_SUCCESS:
         case UPDATE_PROFILE_SUCCESS:
             return { ...state, user: action.payload, error: null, loading: false }
+
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:
             return { ...state, jwt: action.payload, loading: false, error: null }
@@ -41,7 +44,8 @@ export const authReducer = (state = initialState, action) => {
             return { ...state, loading: false, error: action.payload }
 
         case SEARCH_USER_SUCCESS:
-            return {...state,searchUser:action.payload, error: null, loading: false }
+            return { ...state, searchUser: action.payload, error: null, loading: false }
+
         default:
             return state;
     }

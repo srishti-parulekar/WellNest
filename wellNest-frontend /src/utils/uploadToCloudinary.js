@@ -3,7 +3,9 @@ const upload_preset = "azekqhed";
 
 export const uploadToCloudinary = async (pics, fileType) => {
   if (pics && fileType) {
+    
     const data = new FormData();
+
     data.append("file", pics);
     data.append("upload_preset", upload_preset);
     data.append("cloud_name", cloud_name)
@@ -15,9 +17,13 @@ export const uploadToCloudinary = async (pics, fileType) => {
 
     const fileData = await res.json();
     console.log("Uploaded file URL:", fileData.url);
+
     return fileData.url;
+
   } else {
+
     console.error("Error: No file or fileType provided");
     return null;
+
   }
 };

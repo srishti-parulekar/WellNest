@@ -16,7 +16,6 @@ import {
     CREATE_COMMENT_FAILURE
 } from "./post.actionType";
 import { api } from "../../config/api";
-import axios from "axios";
 
 export const createPostAction = (postData) => async (dispatch) => {
     dispatch({ type: CREATE_POST_REQUEST });
@@ -65,7 +64,7 @@ export const likePostAction = (postid) => async (dispatch) => {
         const response = await api.put(`/api/posts/like/${postid}`);
         dispatch({ type: LIKE_POST_SUCCESS, payload: response.data });
     } catch (error) {
-        console.error("Error liking post:", error); // Log detailed error info
+        console.error("Error liking post:", error); 
         dispatch({ 
             type: LIKE_POST_FAILURE, 
             payload: error.response ? error.response.data : error.message 

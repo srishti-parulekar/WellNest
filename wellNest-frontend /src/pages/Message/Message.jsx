@@ -6,8 +6,10 @@ import React, { useEffect, useState } from "react";
 import SearchUser2 from "../../components/SearchUser/SearchUser2";
 import UserChatCard from "./UserChatCard";
 import ChatMessages from "./ChatMessages";
-import { getAllChats } from "../../redux/Message/message.action";
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import createMessage, { getAllChats } from "../../redux/Message/message.action";
 import { useDispatch, useSelector } from "react-redux";
+import { uploadToCloudinary } from "../../utils/uploadToCloudinary";
 
 const Message = () => {
   const dispatch = useDispatch();
@@ -15,6 +17,7 @@ const Message = () => {
   const [currentChat, setCurrentChat] = useState();
   const [messages, setMessages] = useState();
   const [selectedMessage, setSelectedMessage] = useState();
+  const [loading, setLoading] = useState();
 
   useEffect(() => {
     dispatch(getAllChats());
@@ -22,8 +25,12 @@ const Message = () => {
 
   console.log("chats--------", message.chats);
 
-  const handleSelectImage = () => {
+  const handleSelectImage = async() => {
+    setLoading(true)
     console.log("handle select image...");
+    const imgUrl = await uploadToCloudinary(e.target.files[0], "image")
+    selectedImage(imgUrl)
+    setLoading(false)
   };
 
   const handleCreateMessage = (value) => {
@@ -32,6 +39,7 @@ const Message = () => {
       content: value,
       image: selectedImage,
     };
+    dispatch(createMessage(message))
   };
 
   return (
@@ -51,12 +59,16 @@ const Message = () => {
                 <SearchUser2 />
                 <div className="h-full space-y-4 mt-5 overflow-y-scroll hideScrollbar">
                   {message.chats.map((item) => {
-                   return  <div onClick={()=>{
-                      setCurrentChat(item)
-                      setMessages(item.messages)
-                    }}>
-                      <UserChatCard chat={item} />;
-                    </div>;
+                    return (
+                      <div
+                        onClick={() => {
+                          setCurrentChat(item);
+                          setMessages(item.messages);
+                        }}
+                      >
+                        <UserChatCard chat={item} />;
+                      </div>
+                    );
                   })}
                 </div>
               </div>
@@ -65,49 +77,57 @@ const Message = () => {
         </Grid>
 
         <Grid className="h-full" item xs={9}>
-          <div>
+{   currentChat?      <div>
             <div className="flex justify-between items-center border p-5 border-[#78350f]">
               <div className="flex items-center space-x-3 ">
                 <Avatar src="https://images.pexels.com/photos/1499327/pexels-photo-1499327.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" />
-                <p>Code with samidha</p>
+                <p>{auth.user.id === currentChat.users[0].id?currentChat.users[1].firstName+" "+currentChat.users[1].lastName:currentChat.users[0].firstName+" "+currentChat.users[0].lastName}</p>
               </div>
             </div>
 
             <div className="hideScrollbar overflow-y-scroll h-[82vh] px-2 space-y-5 py-5">
               <ChatMessages />
             </div>
-          </div>
-
-          <div className="sticky bottom-0 bg-transparent border-t border-[#78350f]">
-            <div className="py-5 flex items-center justify-between space-x-5 px-5">
-              <div className="flex items-center space-x-3 border border-[#78350f] rounded-full flex-grow">
-                <input
-                  className="bg-transparent w-full border-none py-3 px-5 outline-none"
-                  id="text-input"
-                  placeholder="Type message..."
-                  type="text"
-                />
-                <IconButton>
-                  <SendIcon />
-                </IconButton>
-              </div>
-
-              <div>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleSelectImage}
-                  className="hidden"
-                  id="image-input"
-                />
-                <label htmlFor="image-input">
+            <div className="sticky bottom-0 bg-transparent border-t border-[#78350f]">
+              <div className="py-5 flex items-center justify-between space-x-5 px-5">
+                <div className="flex items-center space-x-3 border border-[#78350f] rounded-full flex-grow">
+                  <input
+                    onKeyPress={(e)=>{
+                      if(e.key === "Enter" && e.target.value){
+                        handleCreateMessage(e.target.value)
+                      }
+                    }}
+                    className="bg-transparent w-full border-none py-3 px-5 outline-none"
+                    id="text-input"
+                    placeholder="Type message..."
+                    type="text"
+                  />
                   <IconButton>
-                    <AddPhotoAlternateIcon />
+                    <SendIcon />
                   </IconButton>
-                </label>
+                </div>
+
+                <div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleSelectImage}
+                    className="hidden"
+                    id="image-input"
+                  />
+                  <label htmlFor="image-input">
+                    <IconButton>
+                      <AddPhotoAlternateIcon />
+                    </IconButton>
+                  </label>
+                </div>
               </div>
             </div>
+          </div>:<div className="h-full space-y-5 flex flex-col justify-center items-center">
+            <ChatBubbleOutlineIcon sx={{fontSize:"8rem"}}/>
+            <p className="text-2xl font-semibold">No chat selected</p>
           </div>
+          }
         </Grid>
       </Grid>
     </div>

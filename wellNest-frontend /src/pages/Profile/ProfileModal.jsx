@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
-import TextField from '@mui/material/TextField'; // Ensure this import is present
+import TextField from '@mui/material/TextField'; 
 import { updateProfileAction } from '../../redux/Auth/auth.action';
 
 const style = {
@@ -20,7 +20,7 @@ const style = {
     boxShadow: 24,
     p: 2,
     outline: "none",
-    overflowY: "scroll", // Corrected property name
+    overflowY: "scroll", 
     borderRadius: 3,
 };
 

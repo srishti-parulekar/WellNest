@@ -10,7 +10,6 @@ import { getProfileAction } from './redux/Auth/auth.action';
 function App() {
   const auth = useSelector(state => state.auth);
   const dispatch = useDispatch();
-
   const jwt = localStorage.getItem("jwt");
 
   useEffect(() => {
