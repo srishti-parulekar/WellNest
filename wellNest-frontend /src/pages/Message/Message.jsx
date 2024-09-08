@@ -25,15 +25,15 @@ const Message = () => {
     dispatch(getAllChats());
   }, [dispatch]);
 
+  console.log("chats----", message.chats);
+
   useEffect(() => {
-    // Update messages when currentChat changes
-    if (currentChat && currentChat.messages) {
-      setMessages(currentChat.messages);
+    if (currentChat) {
+      setMessages(currentChat.message || []); 
     }
   }, [currentChat]);
 
   useEffect(() => {
-    // Listen to message creation success and update messages state
     if (message.createdMessage && message.createdMessage.chatid === currentChat?.chatid) {
       setMessages((prevMessages) => [...prevMessages, message.createdMessage]);
     }
@@ -55,14 +55,14 @@ const Message = () => {
       console.error("No chat selected or chat ID is missing");
       return;
     }
-    const message = {
-      chatId: currentChat.chatid,  // Using chatid consistently
+    const newMsg = {
+      chatId: currentChat.chatid,
       content: value,
       image: selectedImage,
     };
-    dispatch(createMessage(message));
-    setSelectedImage(null); // Clear image after sending message
-    setNewMessage(""); // Clear input field after sending
+    dispatch(createMessage(newMsg));
+    setSelectedImage(null); 
+    setNewMessage(""); 
   };
 
   return (
@@ -83,10 +83,10 @@ const Message = () => {
                 <div className="h-full space-y-4 mt-5 overflow-y-scroll hideScrollbar">
                   {message.chats.map((item) => (
                     <div
-                      key={item.chatid}  // Using chatid consistently
+                      key={item.chatid} 
                       onClick={() => {
                         setCurrentChat(item);
-                        setMessages(item.messages || []);  // Safely handling messages array
+                        setMessages(item.message || []); 
                       }}
                     >
                       <UserChatCard chat={item} />
@@ -112,17 +112,21 @@ const Message = () => {
                 </div>
               </div>
 
-              <div className="hideScrollbar overflow-y-scroll h-[82vh] px-2 space-y-5 py-5">
-                {messages.map((item) => (
-                  <ChatMessages key={item.messageid} item={item} />  // Ensure unique key
-                ))}
+              <div className="hideScrollbar overflow-y-scroll h-[82vh] px-2 space-y-5">
+                {messages.length === 0 ? (
+                  <p>No messages to display</p> 
+                ) : (
+                  messages.map((item) => (
+                    <ChatMessages key={item.messageid} item={item} /> 
+                  ))
+                )}
               </div>
               <div className="sticky bottom-0 bg-transparent border-t border-[#78350f]">
                 <div className="py-5 flex items-center justify-between space-x-5 px-5">
                   <div className="flex items-center space-x-3 border border-[#78350f] rounded-full flex-grow">
                     <input
-                      value={newMessage}  // Bind input value to state
-                      onChange={(e) => setNewMessage(e.target.value)}  // Update state on input change
+                      value={newMessage} // Bind input value to state
+                      onChange={(e) => setNewMessage(e.target.value)} // Update state on input change
                       onKeyPress={(e) => {
                         if (e.key === "Enter" && newMessage.trim()) {
                           handleCreateMessage(newMessage);

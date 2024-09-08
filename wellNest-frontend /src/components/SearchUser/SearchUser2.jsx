@@ -7,19 +7,17 @@ import { createChat } from "../../redux/Message/message.action";
 const SearchUser2 = () => {
   const [userName, setUserName] = useState("");
   const dispatch = useDispatch();
-  const { auth } = useSelector((store) => store); 
+  const { auth } = useSelector((store) => store);
 
   const handleSearchUser = (e) => {
     setUserName(e.target.value);
-    console.log("search user...");
     dispatch(searchUserAction(e.target.value));
   };
 
-  const handleClick = (userId) => {
-    const chat = { userId }; 
+  const handleClick = (userid) => {
+    const chat = { userid };
     dispatch(createChat(chat));
-};
-
+  };
 
   return (
     <div className="relative">
@@ -28,6 +26,7 @@ const SearchUser2 = () => {
           className="bg-transparent border border-[#fffbeb] outline-none w-full px-3 py-3 rounded-full"
           placeholder="Search user..."
           onChange={handleSearchUser}
+          value={userName}
           type="text"
         />
       </div>
@@ -35,12 +34,12 @@ const SearchUser2 = () => {
       {userName &&
         auth.searchUser.map((item) => (
           <Card
-            key={item.id}
+            key={item.userid} 
             className="absolute z-10 top-[4.5rem] w-full max-w-md cursor-pointer"
             sx={{ color: "#78350f", backgroundColor: "#fffbeb" }}
           >
             <CardHeader
-              onClick={() => handleClick(item.id)}
+              onClick={() => handleClick(item.userid)} 
               avatar={
                 <Avatar
                   src={
@@ -51,8 +50,8 @@ const SearchUser2 = () => {
                   sx={{ width: "3.5rem", height: "3.5rem" }}
                 />
               }
-              title={item.firstName + " " + item.lastName}
-              subheader={"@" + item.firstName.toLowerCase() + "_" + item.lastName}
+              title={`${item.firstName} ${item.lastName}`} 
+              subheader={`@${item.firstName.toLowerCase()}_${item.lastName}`}
             />
           </Card>
         ))}
