@@ -34,8 +34,11 @@ public class ChatController {
 
     @GetMapping("/api/chats")
     public List<Chat> findUsersChat(@RequestHeader("Authorization") String jwt) {
+        System.out.println("Received request with JWT: " + jwt);
         User user = userService.findUserByJwt(jwt);
         List<Chat> chats = chatService.findUsersChat(user.getUserid());
         return chats;
     }
+
+
 }

@@ -15,8 +15,9 @@ const SearchUser2 = () => {
     dispatch(searchUserAction(e.target.value));
   };
 
-  const handleClick = (id) => {
-    dispatch(createChat({ userid: id }));
+  const handleClick = (userId) => {
+    const chat = { userId }; 
+    dispatch(createChat(chat));
 };
 
 

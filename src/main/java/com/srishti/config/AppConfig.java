@@ -20,16 +20,15 @@ import java.util.Collections;
 @EnableWebSecurity
 public class AppConfig {
 	@Bean
-	SecurityFilterChain securityFilterChain(HttpSecurity http ) throws Exception {
+	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.sessionManagement(
-				 management -> management.sessionCreationPolicy(
-						 SessionCreationPolicy.STATELESS))
-		.authorizeHttpRequests(Authorize -> Authorize 
-				.requestMatchers("/api/**").authenticated()
-				.anyRequest().permitAll())
-		.addFilterBefore(new jwtValidator(), BasicAuthenticationFilter.class)
+						management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+				.authorizeHttpRequests(authorize -> authorize
+						.requestMatchers("/api/**").authenticated()
+						.anyRequest().permitAll())
+				.addFilterBefore(new jwtValidator(), BasicAuthenticationFilter.class)
 				.csrf(csrf -> csrf.disable())
-				.cors(cors->cors.configurationSource(corsConfigurationSource()));
+				.cors(cors -> cors.configurationSource(corsConfigurationSource()));
 		return http.build();
 	}
 
@@ -39,7 +38,7 @@ public class AppConfig {
 			public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
 				CorsConfiguration cfg = new CorsConfiguration();
 				cfg.setAllowedOrigins(Arrays.asList(
-					"http://localhost:8080/","http://localhost:5173/"
+						"http://localhost:5173"
 				));
 				cfg.setAllowedMethods(Collections.singletonList("*"));
 				cfg.setAllowCredentials(true);

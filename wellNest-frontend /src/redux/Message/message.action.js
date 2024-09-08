@@ -10,14 +10,14 @@ import {
     GET_ALL_CHATS_FAILURE
 } from "./message.actionType";
 import { api } from "../../config/api";
+import axios from 'axios';
 
-const createMessage = (message) => async (dispatch) => {
+export const createMessage = (message) => async (dispatch) => {
     dispatch({ type: CREATE_MESSAGE_REQUEST });
     try {
         const { data } = await api.post(`/api/messages/chat/${message.chatId}`, message);
         console.log("Created Message ", data);
         dispatch({ type: CREATE_MESSAGE_SUCCESS, payload: data });
-
     } catch (error) {
         console.log("Catch error", error);
         dispatch({
@@ -30,19 +30,22 @@ const createMessage = (message) => async (dispatch) => {
 export const createChat = (chat) => async (dispatch) => {
     dispatch({ type: CREATE_CHAT_REQUEST });
     try {
-        const { data } = await api.post(`/api/chats`, chat);
+        const token = localStorage.getItem("jwt");
+        const { data } = await axios.post(`http://localhost:8080/api/chats`, chat, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
         console.log("Created Chat ", data);
         dispatch({ type: CREATE_CHAT_SUCCESS, payload: data });
     } catch (error) {
         console.log("Catch error", error);
         dispatch({
             type: CREATE_CHAT_FAILURE,
-            payload: error
+            payload: error.response ? error.response.data : error.message
         });
     }
 };
-
-
 
 export const getAllChats = () => async (dispatch) => {
     dispatch({ type: GET_ALL_CHATS_REQUEST });

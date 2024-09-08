@@ -24,7 +24,9 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/auth/*" element={<Authentication />} />
         <Route path="/home/*" element={auth.user ? <HomePage /> : <Navigate to="/auth/signin" replace />} />
-        <Route path="/message" element={<Message />} />
+        <Route path="/message" element={auth.user ? <Message /> : <Navigate to="/auth/signin" replace />} />
+        {/* Fallback route for unmatched paths */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   );

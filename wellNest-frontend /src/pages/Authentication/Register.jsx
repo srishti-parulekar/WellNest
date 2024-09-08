@@ -39,8 +39,9 @@ const Register = () => {
 
   const handleSubmit = (values) => {
     console.log("handle submit", values);
-    dispatch(registerUserAction({ data: values }));
-  };
+    dispatch(registerUserAction(values)); // Ensure this matches the backend payload structure
+};
+
 
   const navigate =useNavigate();
 

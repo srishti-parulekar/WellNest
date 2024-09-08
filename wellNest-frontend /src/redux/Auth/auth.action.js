@@ -31,7 +31,6 @@ export const loginUserAction = (loginData) => async (dispatch) => {
         if (data.token) {
             localStorage.setItem("jwt", data.token);
 
-
             const profileResponse = await axios.get(`${API_BASE_URL}/api/users/profile`, {
                 headers: {
                     "Authorization": `Bearer ${data.token}`,
@@ -47,27 +46,20 @@ export const loginUserAction = (loginData) => async (dispatch) => {
         dispatch({ type: LOGIN_FAILURE, payload: error.response?.data?.message || error.message });
     }
 };
-export const registerUserAction = (registerData) => async (dispatch) => {
+
+export const registerUserAction = (userData) => async (dispatch) => {
     dispatch({ type: REGISTER_REQUEST });
 
     try {
-        const { data } = await axios.post(`${API_BASE_URL}/auth/signup`, registerData, {
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-
-        if (data.token) {
-            localStorage.setItem("jwt", data.token);
-        }
-        console.log("register-------", data);
-        dispatch({ type: REGISTER_SUCCESS, payload: data.jwt });
-
+        const { data } = await axios.post(`${API_BASE_URL}/auth/signup`, userData);
+        dispatch({ type: REGISTER_SUCCESS, payload: data });
+        console.log("User registered ", data);
     } catch (error) {
-        console.log("Network Error: ", error);
+        console.log("Error", error.response?.data || error.message);
         dispatch({ type: REGISTER_FAILURE, payload: error.response?.data?.message || error.message });
     }
 };
+
 
 export const getProfileAction = (jwt) => async (dispatch) => {
     dispatch({ type: GET_PROFILE_REQUEST });
