@@ -10,6 +10,12 @@ import SearchUser2 from "../../components/SearchUser/SearchUser2";
 import UserChatCard from "./UserChatCard";
 import ChatMessages from "./ChatMessages";
 import { uploadToCloudinary } from "../../utils/uploadToCloudinary";
+import SockJS from "sockjs-client";
+import Stom from 'stompjs';
+import { Client } from "@stomp/stompjs";
+
+
+
 
 const Message = () => {
   const dispatch = useDispatch();
@@ -58,10 +64,47 @@ const Message = () => {
       content: value,
       image: selectedImage,
     };
-    dispatch(createMessage(newMsg));
+    dispatch(createMessage({newMsg,sendMessageToServer}));
     setSelectedImage(null);
-    setNewMessage("");
+    setNewMessage();
   };
+
+  const [stompClient, setStomClient] = useState(null);
+
+  useEffect(() => {
+    const sock = new SockJS("http://localhost:8080/ws");
+    const stompClient = new Client({
+      webSocketFactory: () => sock,
+      debug: (str) => console.log(str), // Optional: for debugging
+      onConnect: onConnect,
+      onStompError: onErr,
+    });
+    stompClient.activate();
+    setStomClient(stompClient);
+  }, []);
+  
+  const onConnect = () => {
+    console.log("WebSocket connected!");
+  };
+  
+  const onErr = (error) => {
+    console.error("Error:", error);
+  };
+
+  useEffect(()=>{
+    if(stompClient && auth.user && currentChat){
+      const subscription = stompClient.subscribe(`/user/${currentChat.id}/private`,
+        onMessageReice)
+    }
+  })
+const sendMessageToServer=(newMessage)=>{
+  if(stompClient && newMessage){
+    stompClient.send(`/app/chat/${currentChat?.id.toString()}`,{},JSON.stringify)
+  }
+}
+const onMessageReice=(newMessage)=>{
+  console.log("message revice from websocket: ",newMessage)
+}
 
   return (
     <div>

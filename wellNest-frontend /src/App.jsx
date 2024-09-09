@@ -1,3 +1,8 @@
+// Add the global polyfill at the top of the file
+if (typeof global === 'undefined') {
+  window.global = window;
+}
+
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -23,8 +28,14 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/auth/*" element={<Authentication />} />
-        <Route path="/home/*" element={auth.user ? <HomePage /> : <Navigate to="/auth/signin" replace />} />
-        <Route path="/message" element={auth.user ? <Message /> : <Navigate to="/auth/signin" replace />} />
+        <Route 
+          path="/home/*" 
+          element={auth.user ? <HomePage /> : <Navigate to="/auth/signin" replace />} 
+        />
+        <Route 
+          path="/message" 
+          element={auth.user ? <Message /> : <Navigate to="/auth/signin" replace />} 
+        />
         {/* Fallback route for unmatched paths */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

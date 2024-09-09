@@ -12,7 +12,9 @@ public class RealTimeChat {
 
     @MessageMapping("/chat/{groupid}")
     public Message sendToUser(@Payload Message message, @DestinationVariable String groupid){
-        return null;
+
+        simpMessagingTemplate.convertAndSendToUser(groupid, "/private", message);
+        return message;
 
     }
 }

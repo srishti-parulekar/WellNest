@@ -12,10 +12,12 @@ import {
 import { api } from "../../config/api";
 import axios from 'axios';
 
-export const createMessage = (message) => async (dispatch) => {
+export const createMessage = (reqData) => async (dispatch) => {
     dispatch({ type: CREATE_MESSAGE_REQUEST });
     try {
-        const { data } = await api.post(`/api/messages/chat/${message.chatId}`, message);
+        const { data } = await api.post(`/api/messages/chat/${reqData.message.chatId}`, reqData.message);
+        reqData.sendMessageToServer(data)
+
         console.log("Created Message ", data);
         dispatch({ type: CREATE_MESSAGE_SUCCESS, payload: data });
     } catch (error) {
