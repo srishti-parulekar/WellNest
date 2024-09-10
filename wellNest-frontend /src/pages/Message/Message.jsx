@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Avatar, Grid, IconButton } from "@mui/material";
@@ -11,11 +11,7 @@ import UserChatCard from "./UserChatCard";
 import ChatMessages from "./ChatMessages";
 import { uploadToCloudinary } from "../../utils/uploadToCloudinary";
 import SockJS from "sockjs-client";
-import Stom from 'stompjs';
 import { Client } from "@stomp/stompjs";
-
-
-
 
 const Message = () => {
   const dispatch = useDispatch();
@@ -27,13 +23,16 @@ const Message = () => {
   const [loading, setLoading] = useState(false);
   const [newMessage, setNewMessage] = useState("");
 
+  const chatContainerRef = useRef(null);
+  const stompClientRef = useRef(null);
+
   useEffect(() => {
     dispatch(getAllChats());
   }, [dispatch]);
 
   useEffect(() => {
     if (currentChat) {
-      setMessages(currentChat.message || []);
+      setMessages(currentChat.messages || []);
     }
   }, [currentChat]);
 
@@ -60,51 +59,62 @@ const Message = () => {
       return;
     }
     const newMsg = {
-      chatId: currentChat.chatid,
+      chatid: currentChat.chatid,
       content: value,
       image: selectedImage,
     };
-    dispatch(createMessage({newMsg,sendMessageToServer}));
+    if (stompClientRef.current) {
+      stompClientRef.current.publish({
+        destination: `/app/chat/${currentChat.chatid}`,
+        body: JSON.stringify(newMsg),
+      });
+    }
+    dispatch(createMessage({ message: newMsg }));
     setSelectedImage(null);
-    setNewMessage();
+    setNewMessage("");
   };
 
-  const [stompClient, setStomClient] = useState(null);
-
   useEffect(() => {
-    const sock = new SockJS("http://localhost:8080/ws");
-    const stompClient = new Client({
-      webSocketFactory: () => sock,
-      debug: (str) => console.log(str), // Optional: for debugging
+    const socket = new SockJS("http://localhost:8080/ws");
+    const client = new Client({
+      webSocketFactory: () => socket,
+      debug: (str) => console.log(str),
       onConnect: onConnect,
       onStompError: onErr,
     });
-    stompClient.activate();
-    setStomClient(stompClient);
+    client.activate();
+    stompClientRef.current = client;
   }, []);
-  
+
   const onConnect = () => {
     console.log("WebSocket connected!");
   };
-  
+
   const onErr = (error) => {
     console.error("Error:", error);
   };
 
-  useEffect(()=>{
-    if(stompClient && auth.user && currentChat){
-      const subscription = stompClient.subscribe(`/user/${currentChat.id}/private`,
-        onMessageReice)
+  useEffect(() => {
+    if (stompClientRef.current && auth.user && currentChat) {
+      const chatid = currentChat?.chatid;
+      if (chatid) {
+        const subscription = stompClientRef.current.subscribe(`/user/${auth.user.userid}/private`, onMessageReceive);
+        return () => subscription.unsubscribe();
+      }
     }
-  })
-const sendMessageToServer=(newMessage)=>{
-  if(stompClient && newMessage){
-    stompClient.send(`/app/chat/${currentChat?.id.toString()}`,{},JSON.stringify)
-  }
-}
-const onMessageReice=(newMessage)=>{
-  console.log("message revice from websocket: ",newMessage)
-}
+  }, [stompClientRef.current, currentChat, auth.user]);
+
+  const onMessageReceive = (payload) => {
+    const receivedMessage = JSON.parse(payload.body);
+    console.log("Message received from WebSocket: ", receivedMessage);
+    setMessages((prevMessages) => [...prevMessages, receivedMessage]);
+  };
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   return (
     <div>
@@ -113,7 +123,7 @@ const onMessageReice=(newMessage)=>{
           <div className="flex h-full justify-between space-x-2">
             <div className="w-full">
               <div className="flex space-x-4 items-center py-5">
-                <IconButton sx={{ color: "#fffbeb" }} onClick={() => navigate('/home')}>
+                <IconButton sx={{ color: "#fffbeb" }} onClick={() => navigate("/home")}>
                   <WestIcon />
                 </IconButton>
                 <h1 className="text-xl font-bold">Home</h1>
@@ -123,13 +133,7 @@ const onMessageReice=(newMessage)=>{
                 <SearchUser2 />
                 <div className="h-full space-y-4 mt-5 overflow-y-scroll hideScrollbar">
                   {message.chats.map((item) => (
-                    <div
-                      key={item.chatid}
-                      onClick={() => {
-                        setCurrentChat(item);
-                        setMessages(item.message || []);
-                      }}
-                    >
+                    <div key={item.chatid} onClick={() => setCurrentChat(item)}>
                       <UserChatCard chat={item} />
                     </div>
                   ))}
@@ -144,21 +148,21 @@ const onMessageReice=(newMessage)=>{
             <div>
               <div className="flex justify-between items-center border p-5 border-[#78350f]">
                 <div className="flex items-center space-x-3">
-                  <Avatar src="https://images.pexels.com/photos/1499327/pexels-photo-1499327.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" />
+                  <Avatar src="https://images.pexels.com/photos/1499327/pexels-photo-1499327.jpeg" />
                   <p>
-                    {auth.user.id === currentChat.users[0].id
+                    {auth.user.userid === currentChat.users[0].userid
                       ? `${currentChat.users[1].firstName} ${currentChat.users[1].lastName}`
                       : `${currentChat.users[0].firstName} ${currentChat.users[0].lastName}`}
                   </p>
                 </div>
               </div>
 
-              <div className="hideScrollbar overflow-y-scroll h-[82vh] px-2 space-y-5">
+              <div ref={chatContainerRef} className="hideScrollbar overflow-y-scroll h-[82vh] px-2 space-y-5">
                 {messages.length === 0 ? (
                   <p>No messages to display</p>
                 ) : (
                   messages.map((item) => (
-                    <ChatMessages key={item.messageid} item={item} currentUserId={auth.user.id} />
+                    <ChatMessages key={item.messageid} item={item} currentUserId={auth.user.userid} />
                   ))
                 )}
               </div>
@@ -178,11 +182,7 @@ const onMessageReice=(newMessage)=>{
                     />
                     <IconButton component="label">
                       <AddPhotoAlternateIcon />
-                      <input
-                        type="file"
-                        hidden
-                        onChange={handleSelectImage}
-                      />
+                      <input type="file" hidden onChange={handleSelectImage} />
                     </IconButton>
                     <IconButton onClick={() => handleCreateMessage(newMessage)}>
                       <SendIcon />

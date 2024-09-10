@@ -15,19 +15,17 @@ import axios from 'axios';
 export const createMessage = (reqData) => async (dispatch) => {
     dispatch({ type: CREATE_MESSAGE_REQUEST });
     try {
-        const { data } = await api.post(`/api/messages/chat/${reqData.message.chatId}`, reqData.message);
-        reqData.sendMessageToServer(data)
-
-        console.log("Created Message ", data);
-        dispatch({ type: CREATE_MESSAGE_SUCCESS, payload: data });
+      const { data } = await api.post(`/api/messages/chat/${reqData.message.chatid}`, reqData.message);
+      if (reqData.sendMessageToServer) { // Ensure this function exists
+        reqData.sendMessageToServer(data);
+      }
+      dispatch({ type: CREATE_MESSAGE_SUCCESS, payload: data });
     } catch (error) {
-        console.log("Catch error", error);
-        dispatch({
-            type: CREATE_MESSAGE_FAILURE,
-            payload: error
-        });
+      console.error("Error in creating message", error);
+      dispatch({ type: CREATE_MESSAGE_FAILURE, payload: error.message });
     }
-}
+  };
+  
 
 export const createChat = (chat) => async (dispatch) => {
     dispatch({ type: CREATE_CHAT_REQUEST });

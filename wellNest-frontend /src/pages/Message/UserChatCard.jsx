@@ -5,7 +5,9 @@ import { useSelector } from "react-redux";
 
 const UserChatCard = ({ chat }) => {
 
-  const { message, auth } = useSelector(store => store); 
+
+  const message = useSelector((state) => state.message.chats);
+  const auth = useSelector((state) => state.auth.user);
 
   return (
     <Card
@@ -23,7 +25,8 @@ const UserChatCard = ({ chat }) => {
             <MoreHorizIcon />
           </IconButton>
         }
-        title={auth.user.id === chat.users[0].id?chat.users[1].firstName+" "+chat.users[1].lastName:chat.users[0].firstName+" "+chat.users[0].lastName}
+        
+        title={auth.userid === chat.users[0].userid ? chat.users[1].firstName + " " + chat.users[1].lastName : chat.users[0].firstName + " " + chat.users[0].lastName}
         subheader={"new message"}
       />
     </Card>
