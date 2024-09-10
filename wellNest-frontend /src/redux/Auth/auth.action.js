@@ -15,7 +15,10 @@ import {
     UPDATE_PROFILE_REQUEST,
     SEARCH_USER_REQUEST,
     SEARCH_USER_SUCCESS,
-    SEARCH_USER_FAILURE
+    SEARCH_USER_FAILURE,
+    LOGOUT_REQUEST,
+    LOGOUT_SUCCESS,
+    LOGOUT_FAILURE
 } from "./auth.actionType";
 
 export const loginUserAction = (loginData) => async (dispatch) => {
@@ -126,3 +129,16 @@ export const searchUserAction = (query) => async (dispatch) => {
         dispatch({ type: SEARCH_USER_FAILURE, payload: error.response?.data?.message || error.message });
     }
 };
+
+export const logoutUserAction = () => (dispatch) => {
+    dispatch({ type: LOGOUT_REQUEST });
+    try {
+        localStorage.removeItem("jwt");
+        dispatch({ type: LOGOUT_SUCCESS });
+        console.log("logout successful!");
+    } catch (error) {
+        dispatch({ type: LOGOUT_FAILURE, payload: error.message });
+    }
+};
+
+

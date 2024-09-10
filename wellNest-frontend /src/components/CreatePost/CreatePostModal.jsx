@@ -7,12 +7,13 @@ import {
   Backdrop,
   CircularProgress,
   Modal,
+  Typography,
 } from "@mui/material";
 import { useFormik } from "formik";
 import ImageIcon from "@mui/icons-material/Image";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import { uploadToCloudinary } from "../../utils/uploadToCloudinary";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createPostAction } from "../../redux/Post/post.action";
 
 const style = {
@@ -21,7 +22,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 500,
-  bgcolor: "#fffbeb",
+  bgcolor: "#fffae0",
   border: "2px solid #78350f",
   boxShadow: 24,
   p: 4,
@@ -33,6 +34,7 @@ const CreatePostModal = ({ handleClose, open }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { auth } = useSelector(store => store);
   const dispatch = useDispatch();
 
   const formik = useFormik({
@@ -86,10 +88,15 @@ const CreatePostModal = ({ handleClose, open }) => {
             <div className="flex space-x-4 items-center">
               <Avatar />
               <div>
-                <p className="font-bold text-lg">
-                  Code with Srishti and Samidha
-                </p>
-                <p className="text-sm">@codewithSamidhaAndSrishti</p>
+                <Typography variant="h6" component="p" className="font-bold text-lg">
+                  {auth.user?.firstName + " " + auth.user?.lastName}
+                </Typography>
+                <Typography variant="body2" component="p" className="text-sm">
+                  @
+                  {auth.user?.firstName.toLowerCase() +
+                    "_" +
+                    auth.user?.lastName.toLowerCase()}
+                </Typography>
               </div>
             </div>
             <textarea
@@ -112,10 +119,12 @@ const CreatePostModal = ({ handleClose, open }) => {
                 />
                 <label htmlFor="image-input">
                   <IconButton color="primary" component="span">
-                    <ImageIcon />
+                    <ImageIcon sx={{ color: "#78350f" }} />
                   </IconButton>
                 </label>
-                <span>Image</span>
+                <Typography variant="body2" component="span" className="ml-2" sx={{ color: "#78350f" }}>
+                  Image
+                </Typography>
               </div>
               <div>
                 <input
@@ -127,10 +136,12 @@ const CreatePostModal = ({ handleClose, open }) => {
                 />
                 <label htmlFor="video-input">
                   <IconButton color="primary" component="span">
-                    <VideocamIcon />
+                    <VideocamIcon sx={{ color: "#78350f" }} />
                   </IconButton>
                 </label>
-                <span>Video</span>
+                <Typography variant="body2" component="span" className="ml-2" sx={{ color: "#78350f" }}>
+                  Video
+                </Typography>
               </div>
             </div>
 
@@ -158,7 +169,7 @@ const CreatePostModal = ({ handleClose, open }) => {
               <Button
                 variant="contained"
                 type="submit"
-                sx={{ borderRadius: "1.5rem" }}
+                sx={{ borderRadius: "1.5rem", backgroundColor: "#78350f", color: "#fff" }}
               >
                 Post
               </Button>

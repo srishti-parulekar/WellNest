@@ -54,7 +54,8 @@ const PostCard = ({ item }) => {
   };
 
   if (!item || !item.user) {
-    return null; // Return null or a loading spinner if item is not available
+    return null; 
+    
   }
 
   return (
@@ -79,8 +80,7 @@ const PostCard = ({ item }) => {
       <CardMedia
         component="img"
         height="194"
-        image={item.image || 'default_image_url'} // Provide a default image URL
-        alt="Post Image"
+        image={item.image || 'default_image_url'}
         sx={{ objectFit: 'cover' }}
       />
       <CardContent>
