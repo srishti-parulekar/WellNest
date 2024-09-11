@@ -2,7 +2,8 @@ import React from "react";
 import { Avatar } from "@mui/material";
 
 const ChatMessages = ({ item, currentUserId }) => {
-  const isReqUserMessage = item.senderid === currentUserId;
+  // Check if the message was sent by the current user
+  const isReqUserMessage = item.user.userid === currentUserId;
 
   return (
     <div
@@ -12,7 +13,7 @@ const ChatMessages = ({ item, currentUserId }) => {
     >
       <Avatar
         src={
-          item.avatar ||
+          item.user.avatar || // Assuming avatar is inside the user object
           "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
         }
       />

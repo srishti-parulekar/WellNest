@@ -32,7 +32,7 @@ const Message = () => {
 
   useEffect(() => {
     if (currentChat) {
-      setMessages(currentChat.messages || []);
+      setMessages(currentChat.message || []);
     }
   }, [currentChat]);
 
@@ -58,18 +58,28 @@ const Message = () => {
       console.error("No chat selected or chat ID is missing");
       return;
     }
+
     const newMsg = {
       chatid: currentChat.chatid,
       content: value,
       image: selectedImage,
+      user: auth.user,
     };
+
+    setMessages((prevMessages) => [...prevMessages, newMsg]);
+
     if (stompClientRef.current) {
       stompClientRef.current.publish({
         destination: `/app/chat/${currentChat.chatid}`,
         body: JSON.stringify(newMsg),
       });
+      console.log("Message published: ", newMsg);
+    } else {
+      console.error("STOMP client is not initialized.");
     }
+
     dispatch(createMessage({ message: newMsg }));
+
     setSelectedImage(null);
     setNewMessage("");
   };
@@ -88,26 +98,29 @@ const Message = () => {
 
   const onConnect = () => {
     console.log("WebSocket connected!");
+    if (stompClientRef.current && auth.user && currentChat) {
+      const chatid = currentChat.chatid;
+      if (chatid) {
+        const subscription = stompClientRef.current.subscribe(`/user/${auth.user.userid}/private`, onMessageReceive);
+        return () => {
+          console.log("Unsubscribing from chat with ID:", chatid);
+          subscription.unsubscribe();
+        };
+      }
+    }
   };
 
   const onErr = (error) => {
-    console.error("Error:", error);
+    console.error("STOMP Error:", error);
   };
-
-  useEffect(() => {
-    if (stompClientRef.current && auth.user && currentChat) {
-      const chatid = currentChat?.chatid;
-      if (chatid) {
-        const subscription = stompClientRef.current.subscribe(`/user/${auth.user.userid}/private`, onMessageReceive);
-        return () => subscription.unsubscribe();
-      }
-    }
-  }, [stompClientRef.current, currentChat, auth.user]);
 
   const onMessageReceive = (payload) => {
     const receivedMessage = JSON.parse(payload.body);
     console.log("Message received from WebSocket: ", receivedMessage);
-    setMessages((prevMessages) => [...prevMessages, receivedMessage]);
+
+    if (receivedMessage.chatid === currentChat?.chatid) {
+      setMessages((prevMessages) => [...prevMessages, receivedMessage]);
+    }
   };
 
   useEffect(() => {
