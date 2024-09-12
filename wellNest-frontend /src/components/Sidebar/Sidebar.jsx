@@ -44,7 +44,7 @@ const Sidebar = () => {
       style={{ backgroundColor: "#78350f", color: "#fffae0" }}
     >
       <div className="space-y-8 pl-5 pt-5">
-        <div>
+        <div className=" pb-7">
           <span className="logo font-semi-bold text-3xl">WellNest</span>
         </div>
         <div className="space-y-8">
@@ -55,7 +55,7 @@ const Sidebar = () => {
               className="cursor-pointer flex space-x-3 items-center text-[#fffae0]"
             >
               {item.icon}
-              <p className="text-xl">{item.title}</p>
+              <p className="text-2xl">{item.title}</p>
             </div>
           ))}
         </div>
