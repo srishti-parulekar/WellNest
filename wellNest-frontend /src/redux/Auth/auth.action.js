@@ -69,7 +69,7 @@ export const getProfileAction = (jwt) => async (dispatch) => {
 
     try {
         const { data } = await axios.get(
-            `${API_BASE_URL}/api/users`,
+            `${API_BASE_URL}/api/users/profile`,
             {
                 headers: {
                     "Authorization": `Bearer ${jwt}`,

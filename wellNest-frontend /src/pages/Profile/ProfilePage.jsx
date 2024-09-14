@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Avatar, Box, Tabs, Tab, Button, Card } from "@mui/material";
 import PostCard from "../../components/Post/PostCard";
 import ProfileModal from "./ProfileModal";
-import { getAllPostAction } from "../../redux/Post/post.action";
+import { getAllPostAction, getUsersPostAction } from "../../redux/Post/post.action";
 import { getUserByIdAction } from "../../redux/Auth/auth.action";
 
 const tabs = [
@@ -16,7 +16,13 @@ const ProfilePage = () => {
   const { id } = useParams();
   const [value, setValue] = React.useState("post");
   const { auth, post } = useSelector((store) => store);
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    dispatch(getAllPostAction());
+    dispatch(getUserByIdAction(id));
+  }, [dispatch, id]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -25,7 +31,6 @@ const ProfilePage = () => {
   const handleOpenProfileModal = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  // Filter posts based on the logged-in user ID
   const userId = auth.user?.userid;
   const userPosts = post.posts?.filter(post => post.user.userid === userId);
   const likedPosts = post.posts?.filter(post => post.liked.some(like => like.userid === userId));

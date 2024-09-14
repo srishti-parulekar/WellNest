@@ -64,7 +64,6 @@ export const likePostAction = (postid) => async (dispatch) => {
         const response = await api.put(`/api/posts/like/${postid}`);
         dispatch({ type: LIKE_POST_SUCCESS, payload: response.data });
     } catch (error) {
-        console.error("Error liking post:", error); 
         dispatch({ 
             type: LIKE_POST_FAILURE, 
             payload: error.response ? error.response.data : error.message 

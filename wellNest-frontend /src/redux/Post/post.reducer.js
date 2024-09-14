@@ -46,15 +46,14 @@ const postReducer = (state = initialState, action) => {
                 error: null
             };
 
-        case LIKE_POST_SUCCESS:
-            return {
-                ...state,
-                like: action.payload,
-                posts: state.posts.map((item) =>
-                    item.postid === action.payload.postid ? action.payload : item
-                ),
-                loading: false
-            };
+            case LIKE_POST_SUCCESS:
+                return {
+                  ...state,
+                  loading: false,
+                  posts: state.posts.map(post =>
+                    post.postid === action.payload.postid ? action.payload : post
+                  )
+                };
 
 
         case CREATE_COMMENT_SUCCESS:
@@ -67,12 +66,8 @@ const postReducer = (state = initialState, action) => {
 
         case CREATE_POST_FAILURE:
         case GET_ALL_POST_FAILURE:
-        case LIKE_POST_FAILURE:
-            return {
-                ...state,
-                loading: false,
-                error: action.payload
-            };
+            case LIKE_POST_FAILURE:
+                return { ...state, loading: false, error: action.payload };
 
         default:
             return state;
