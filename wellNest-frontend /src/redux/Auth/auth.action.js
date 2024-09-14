@@ -69,7 +69,7 @@ export const getProfileAction = (jwt) => async (dispatch) => {
 
     try {
         const { data } = await axios.get(
-            `${API_BASE_URL}/api/users/profile`,
+            `${API_BASE_URL}/api/users`,
             {
                 headers: {
                     "Authorization": `Bearer ${jwt}`,
@@ -84,6 +84,26 @@ export const getProfileAction = (jwt) => async (dispatch) => {
         dispatch({ type: GET_PROFILE_FAILURE, payload: error.response?.data?.message || error.message });
     }
 };
+
+export const getUserByIdAction = (userid) => async (dispatch) => {
+    dispatch({ type: GET_PROFILE_REQUEST });
+
+    try {
+        const token = localStorage.getItem("jwt");
+        const { data } = await axios.get(`${API_BASE_URL}/api/users/${userid}`, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+
+        console.log("User profile-------", data);
+        dispatch({ type: GET_PROFILE_SUCCESS, payload: data });
+    } catch (error) {
+        console.log("Network Error: ", error.response?.data || error.message);
+        dispatch({ type: GET_PROFILE_FAILURE, payload: error.response?.data?.message || error.message });
+    }
+};
+
 
 export const updateProfileAction = (reqData) => async (dispatch) => {
     dispatch({ type: UPDATE_PROFILE_REQUEST });

@@ -24,9 +24,9 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/auth/*" element={<Authentication />} />
-        <Route path="/home/*" element={auth.user ? <HomePage /> : <Navigate to="/auth/signin" replace />} />
-        <Route path="/message" element={auth.user ? <Message /> : <Navigate to="/auth/signin" replace />} />
-        <Route path="/communities" element={auth.user ? <Communities /> : <Navigate to="/auth/signin" replace />} /> {/* Add route for Communities */}
+        <Route path="/home/*" element={<HomePage /> } />
+        <Route path="/message" element={<Message /> } />
+        <Route path="/communities" element={<Communities />} /> 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
