@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { Box, Typography, IconButton } from '@mui/material';
+import WestIcon from '@mui/icons-material/West';
+import { useNavigate } from 'react-router-dom';
 import CommunityList from '../../components/Communities/CommunityList';
-import { Box, Typography } from '@mui/material';
 
 const Communities = () => {
-  // Mock data with images
+  const navigate = useNavigate();
+
   const initialCommunities = [
     {
       id: 1,
@@ -38,9 +41,27 @@ const Communities = () => {
         color: "#fffbeb",
       }}
     >
-      <Typography className='text-[#78350f]' variant="h4" gutterBottom>
-        Communities
-      </Typography>
+      <div className="flex items-center space-x-2">
+        <IconButton 
+          sx={{ 
+            color: "#78350f", 
+            fontSize: "24px", 
+            padding: "4px",
+            mr: 2
+          }} 
+          onClick={() => navigate('/home')}
+        >
+          <WestIcon fontSize="small" />
+        </IconButton>
+        <Typography 
+          variant="h4" 
+          className="text-[#78350f]" 
+          sx={{ fontWeight: 'bold', fontSize: "28px" }}
+        >
+          Communities
+        </Typography>
+      </div>
+
       <Box mt={4}>
         <CommunityList communities={communities} />
       </Box>

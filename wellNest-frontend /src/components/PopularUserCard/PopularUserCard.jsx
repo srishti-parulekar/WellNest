@@ -1,15 +1,14 @@
 import React from 'react';
-import { CardHeader, Avatar, IconButton, Button } from '@mui/material';
+import { CardHeader, Avatar, Button } from '@mui/material';
 import { red } from '@mui/material/colors';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-const PopularUserCard = () => {
+const PopularUserCard = ({ user }) => {
   return (
     <div>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+            {user.name[0]} {/* Display the first letter of the user's name */}
           </Avatar>
         }
         action={
@@ -23,8 +22,8 @@ const PopularUserCard = () => {
             Follow
           </Button>
         }
-        title="Srishti Parulekar"
-        subheader="maybesrishti"
+        title={user.name} // Display the user's name
+        subheader={user.username} // Display the user's username
         sx={{
           '& .MuiCardHeader-title': {
             color: '#5a3825',  
