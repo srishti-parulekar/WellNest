@@ -48,7 +48,6 @@ public class PostController {
 		return new ResponseEntity<ApiResponse>(response,HttpStatus.OK);
 	}
 
-
 	@GetMapping("/api/posts/{postid}")
 	public ResponseEntity<Post> findPostByIdHandler(@PathVariable Integer postid) throws Exception{
 
@@ -56,7 +55,6 @@ public class PostController {
 
 		return new ResponseEntity<Post>(post,HttpStatus.ACCEPTED);
 	}
-
 
 	@GetMapping("/api/posts/user/{userid}")
 	public ResponseEntity<List<Post>> findUsersPost(@PathVariable Integer userid){
@@ -73,7 +71,6 @@ public class PostController {
 
 		return new ResponseEntity<List<Post>>(posts,HttpStatus.OK);
 	}
-
 
 	@PutMapping("/api/posts/save/{postid}/user/{userid}")
 	public ResponseEntity<Post> savePost(@PathVariable Integer postid, @PathVariable Integer userid) throws Exception{

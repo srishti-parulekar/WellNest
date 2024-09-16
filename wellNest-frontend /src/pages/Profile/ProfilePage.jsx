@@ -14,7 +14,7 @@ const tabs = [
 
 const ProfilePage = () => {
   const { id } = useParams();
-  const [value, setValue] = React.useState("post");
+  const [value, setValue] = useState("post");
   const { auth, post } = useSelector((store) => store);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
@@ -31,9 +31,11 @@ const ProfilePage = () => {
   const handleOpenProfileModal = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const userId = auth.user?.userid;
-  const userPosts = post.posts?.filter(post => post.user.userid === userId);
-  const likedPosts = post.posts?.filter(post => post.liked.some(like => like.userid === userId));
+  const userPosts = post.posts?.filter((post) => post.user.userid === id);
+  const likedPosts = post.posts?.filter((post) =>
+    post.liked.some((like) => like.userid === id)
+  );
+  const isCurrentUser = auth.user?.userid === id;
 
   return (
     <Card className="m-10 ml-6">
@@ -55,7 +57,7 @@ const ProfilePage = () => {
             sx={{ width: "10rem", height: "10rem" }}
             src="https://marketplace.canva.com/EAFltPVX5QA/1/0/1600w/canva-cute-cartoon-anime-girl-avatar-ZHBl2NicxII.jpg"
           />
-          {true ? (
+          {isCurrentUser ? (
             <Button
               sx={{
                 borderRadius: "20px",
@@ -75,7 +77,7 @@ const ProfilePage = () => {
                 borderColor: "#78350f",
               }}
               variant="outlined"
-              onClick={() => {}}
+              onClick={() => { }}
             >
               Follow
             </Button>
@@ -84,19 +86,19 @@ const ProfilePage = () => {
         <div className="px-8">
           <div>
             <h1 className="py-1 font-bold text-xl">
-              {auth.user?.firstName + " " + auth.user?.lastName}
+              {auth.viewedUser?.firstName + " " + auth.viewedUser?.lastName}
             </h1>
             <p>
               @
-              {auth.user?.firstName?.toLowerCase() +
+              {auth.viewedUser?.firstName?.toLowerCase() +
                 "_" +
-                auth.user?.lastName?.toLowerCase()}
+                auth.viewedUser?.lastName?.toLowerCase()}
             </p>
           </div>
           <div className="flex gap-2 items-center py-3">
             <span>{userPosts?.length || 0} posts</span>
-            <span>{auth.user?.followers?.length || 0} followers</span>
-            <span>{auth.user?.followings?.length || 0} following</span>
+            <span>{auth.viewedUser?.followers?.length || 0} followers</span>
+            <span>{auth.viewedUser?.followings?.length || 0} following</span>
           </div>
         </div>
         <section className="mt-4">
