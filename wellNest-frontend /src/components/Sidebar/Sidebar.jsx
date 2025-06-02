@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Avatar, Divider, Button, Menu, MenuItem, Card } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { logoutUserAction } from "../../redux/Auth/auth.action"; // Import the logout action
+import { logoutUserAction } from "../../redux/Auth/auth.action"; 
 import { navigationMenu } from "./SidebarNav";
 
 const Sidebar = () => {
   const auth = useSelector((state) => state.auth);
-  const dispatch = useDispatch(); // Use dispatch to trigger logout action
+  const dispatch = useDispatch(); 
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -24,18 +24,16 @@ const Sidebar = () => {
 
   const handleNavigate = (item) => {
     if (item.title === "Profile") {
-      navigate(`/home/profile/${auth.user?.userid}`);
-    } else if (item.title === "Home") {
-      navigate("/home");
+      navigate(`/profile/${auth.user?.userid}`);
     } else {
       navigate(item.path);
     }
   };
 
   const handleLogout = () => {
-    dispatch(logoutUserAction()); // Dispatch logout action
-    navigate("/login"); // Redirect to login page after logout
-    handleClose(); // Close the dropdown menu
+    dispatch(logoutUserAction()); 
+    navigate("/login"); 
+    handleClose();
   };
 
   return (
@@ -55,7 +53,7 @@ const Sidebar = () => {
               className="cursor-pointer flex space-x-3 items-center text-[#fffae0]"
             >
               {item.icon}
-              <p className="text-2xl">{item.title}</p>
+              <p className="text-xl">{item.title}</p>
             </div>
           ))}
         </div>
