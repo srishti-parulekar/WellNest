@@ -1,49 +1,64 @@
 import React from 'react';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { Box } from '@mui/material';
+import { Users, MessageCircle, Shield } from 'lucide-react';
 
-const CommunityCard = ({ community }) => {
-  // Image URLs for each community
-  const images = {
-    'Anxiety Support Group': 'https://plus.unsplash.com/premium_photo-1661963007374-f976ba0112be?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Z3JvdXAlMjBzdXBwb3J0fGVufDB8MHwwfHx8MA%3D%3D',
-    'Depression Healing': 'https://plus.unsplash.com/premium_photo-1661405843619-6dbc76860e18?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aG9wZWZ1bHxlbnwwfDB8MHx8fDA%3D',
-    'Mindfulness Practice': 'https://plus.unsplash.com/premium_photo-1661501227748-2b107ee174d5?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bWluZGZ1bHxlbnwwfDB8MHx8fDA%3D',
-  };
-
+const CommunityCard = ({ community, isJoined, handleJoin }) => {
+  const IconComponent = community.icon;
   return (
-    <Card sx={{ 
-      maxWidth: 345, 
-      backgroundColor: "#78350f", 
-      boxShadow: 3,
-      display: 'flex',
-      flexDirection: 'column',
-      height: '100%'  // Ensures the card takes up the full height of its container
-    }}>
-      <CardMedia
-        component="img"
-        alt={community.name}
-        height="140"
-        image={images[community.name] || '/path/to/default-image.jpg'}
-        sx={{ objectFit: 'cover' }}
-      />
-      <CardContent sx={{ flexGrow: 1 }}> {/* Ensures content grows to fill available space */}
-        <Typography gutterBottom variant="h5" component="div" sx={{ color: "#fffbeb" }}>
+    <div
+      key={community.id}
+      className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-1 overflow-hidden"
+    >
+      <div className={`${community.color} h-2/3 p-4 relative`}>
+        <div className="flex items-center justify-between mb-3">
+          <div className="p-2 bg-white rounded-full shadow-sm">
+            <IconComponent className="w-6 h-6" style={{ color: 'rgb(120, 53, 15)' }} />
+          </div>
+          {community.isPrivate && (
+            <div className="flex items-center gap-1 bg-amber-600 text-white px-2 py-1 rounded-full text-xs">
+              <Shield className="w-3 h-3" />
+              Private
+            </div>
+          )}
+        </div>
+        <h3 className="font-bold text-lg mb-2" style={{ color: 'rgb(120, 53, 15)' }}>
           {community.name}
-        </Typography>
-        <Typography variant="body2" sx={{ color: "#fffbeb" }}>
+        </h3>
+        <p className="text-sm text-amber-800 mb-3 line-clamp-4">
           {community.description}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small" sx={{ color: "#fffbeb" }}>Share</Button>
-        <Button size="small" sx={{ color: "#fffbeb" }}>Learn More</Button>
-      </CardActions>
-    </Card>
+        </p>
+      </div>
+
+      <div className="p-4">
+        <div className="flex items-center justify-between text-sm text-amber-700 mb-4">
+          <div className="flex items-center gap-1">
+            <Users className="w-4 h-4" />
+            <span>{community.members.toLocaleString()}</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <MessageCircle className="w-4 h-4" />
+            <span>{community.posts.toLocaleString()}</span>
+          </div>
+        </div>
+
+        <div className="flex gap-2">
+          <button
+            onClick={() => handleJoin(community.id)}
+            disabled={isJoined}
+            className={`flex-1 py-2 px-4 rounded-full font-medium text-sm transition-all duration-200 ${
+              isJoined
+                ? 'bg-green-100 text-green-700 cursor-not-allowed'
+                : 'text-white hover:opacity-90 shadow-md hover:shadow-lg'
+            }`}
+            style={!isJoined ? { backgroundColor: 'rgb(120, 53, 15)' } : {}}
+          >
+            {isJoined ? 'Joined ✓' : 'Join'}
+          </button>
+          <button className="px-4 py-2 rounded-full border-2 border-amber-200 text-amber-700 hover:bg-amber-50 transition-all duration-200 text-sm font-medium">
+            View
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 
