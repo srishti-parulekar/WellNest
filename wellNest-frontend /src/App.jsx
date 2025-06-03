@@ -10,6 +10,7 @@ import HomePage from './components/MiddlePart/MiddlePart';
 import ProfilePage from './pages/Profile/ProfilePage';
 import { getProfileAction } from './redux/Auth/auth.action';
 import CreateCommunityPage from './components/Communities/CreateCommunityForm';
+import Journal from './pages/Journal/Journal';
 
 function App() {
   const auth = useSelector(state => state.auth);
@@ -34,6 +35,7 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/profile/:id" element={<ProfilePage />} />
           <Route path="/communities" element={<Communities />} />
+          <Route path="/journal" element={<Journal />} />
         </Route>
         <Route path="/create-community" element={<CreateCommunityPage />} />
         <Route path="/message" element={<Message />} />
