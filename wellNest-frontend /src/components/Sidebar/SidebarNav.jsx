@@ -3,6 +3,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import GroupIcon from '@mui/icons-material/Group';
 import PersonIcon from '@mui/icons-material/Person';
 import MessageIcon from '@mui/icons-material/Message';
+import { BookHeart } from 'lucide-react';
 
 export const navigationMenu = [
     {
@@ -19,6 +20,11 @@ export const navigationMenu = [
         title: "Communities",
         icon: <GroupIcon />,
         path: "/communities"
+    },
+    {
+        title: "My Journal",
+        icon: <BookHeart />,
+        path: "/journal"
     },
     {
         title: "Profile",
