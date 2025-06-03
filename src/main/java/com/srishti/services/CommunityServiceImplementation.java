@@ -3,6 +3,7 @@ package com.srishti.services;
 import com.srishti.models.Community;
 import com.srishti.models.User;
 import com.srishti.repository.CommunityRepository;
+import com.srishti.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,7 +56,6 @@ public class CommunityServiceImplementation implements CommunityService {
         existing.setName(community.getName());
         existing.setDescription(community.getDescription());
         existing.setCategory(community.getCategory());
-        existing.setPrivacy(community.getPrivacy());
         existing.setGuidelines(community.getGuidelines());
         existing.setWelcomeMessage(community.getWelcomeMessage());
         existing.setIcon(community.getIcon());

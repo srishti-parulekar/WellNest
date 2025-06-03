@@ -22,10 +22,6 @@ public class Community {
 
     private String category;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Privacy privacy;
-
     private String guidelines;
 
     @Column(nullable = true)
@@ -51,12 +47,11 @@ public class Community {
         // JPA requires a default constructor
     }
 
-    public Community(String name, String description, String category, Privacy privacy,
+    public Community(String name, String description, String category,
                      String guidelines, String welcomeMessage, String icon, List<String> tags, User createdBy) {
         this.name = name;
         this.description = description;
         this.category = category;
-        this.privacy = privacy;
         this.guidelines = guidelines;
         this.welcomeMessage = welcomeMessage;
         this.icon = icon;
@@ -92,14 +87,6 @@ public class Community {
 
     public void setCategory(String category) {
         this.category = category;
-    }
-
-    public Privacy getPrivacy() {
-        return privacy;
-    }
-
-    public void setPrivacy(Privacy privacy) {
-        this.privacy = privacy;
     }
 
     public String getGuidelines() {

@@ -11,6 +11,7 @@ import ProfilePage from './pages/Profile/ProfilePage';
 import { getProfileAction } from './redux/Auth/auth.action';
 import CreateCommunityPage from './components/Communities/CreateCommunityForm';
 import Journal from './pages/Journal/Journal';
+import CommunityViewPage from './components/Communities/CommunityView';
 
 function App() {
   const auth = useSelector(state => state.auth);
@@ -38,6 +39,7 @@ function App() {
           <Route path="/journal" element={<Journal />} />
         </Route>
         <Route path="/create-community" element={<CreateCommunityPage />} />
+         <Route path="/community/view" element={<CommunityViewPage/>} />
         <Route path="/message" element={<Message />} />
         {/* Fallback route */}
         <Route path="*" element={<Navigate to="/" replace />} />

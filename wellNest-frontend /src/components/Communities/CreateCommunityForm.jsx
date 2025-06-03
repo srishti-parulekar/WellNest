@@ -15,17 +15,14 @@ import {
   Camera,
   AlertCircle,
 } from "lucide-react";
-import { use } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { api, API_BASE_URL } from "../../config/api";
+import { api } from "../../config/api";
 
 const CreateCommunityPage = () => {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
     category: "",
-    privacy: "public",
     guidelines: "",
     welcomeMessage: "",
     tags: [],
@@ -33,7 +30,6 @@ const CreateCommunityPage = () => {
 
   const [currentTag, setCurrentTag] = useState("");
   const [selectedIcon, setSelectedIcon] = useState("Heart");
-  const [coverImage, setCoverImage] = useState(null);
   const [errors, setErrors] = useState({});
 
   const categories = [
@@ -86,18 +82,8 @@ const CreateCommunityPage = () => {
     }));
   };
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => setCoverImage(e.target.result);
-      reader.readAsDataURL(file);
-    }
-  };
-
   const validateForm = () => {
     const newErrors = {};
-
     if (!formData.name.trim()) newErrors.name = "Community name is required";
     if (!formData.description.trim())
       newErrors.description = "Description is required";
@@ -118,7 +104,6 @@ const CreateCommunityPage = () => {
         name: formData.name,
         description: formData.description,
         category: formData.category,
-        privacy: formData.privacy.toUpperCase(),
         guidelines: formData.guidelines,
         welcomeMessage: formData.welcomeMessage,
         tags: formData.tags,
@@ -139,6 +124,7 @@ const CreateCommunityPage = () => {
       );
     }
   };
+
   const navigate = useNavigate();
   const SelectedIconComponent =
     iconOptions.find((opt) => opt.name === selectedIcon)?.icon || Heart;
@@ -156,10 +142,7 @@ const CreateCommunityPage = () => {
             Back to Communities
           </button>
           <div className="text-center mb-6">
-            <h1
-              className="text-3xl font-bold"
-              style={{ color: "rgb(120, 53, 15)" }}
-            >
+            <h1 className="text-3xl font-bold" style={{ color: "rgb(120, 53, 15)" }}>
               Create New Community
             </h1>
             <p className="text-amber-700 mt-1">
@@ -171,10 +154,7 @@ const CreateCommunityPage = () => {
         <div className="space-y-8">
           {/* Basic Information */}
           <div className="bg-white rounded-2xl p-6 shadow-lg">
-            <h2
-              className="text-xl font-semibold mb-6"
-              style={{ color: "rgb(120, 53, 15)" }}
-            >
+            <h2 className="text-xl font-semibold mb-6" style={{ color: "rgb(120, 53, 15)" }}>
               Basic Information
             </h2>
 
@@ -208,9 +188,7 @@ const CreateCommunityPage = () => {
                 </label>
                 <select
                   value={formData.category}
-                  onChange={(e) =>
-                    handleInputChange("category", e.target.value)
-                  }
+                  onChange={(e) => handleInputChange("category", e.target.value)}
                   className={`w-full px-4 py-3 text-[#fffbeb] bg-[#78350f] rounded-lg border-2 focus:outline-none transition-colors ${
                     errors.category
                       ? "border-red-300 focus:border-red-400"
@@ -231,52 +209,6 @@ const CreateCommunityPage = () => {
                   </p>
                 )}
               </div>
-
-              <div>
-                <label className="block text-sm font-medium text-amber-800 mb-2">
-                  Privacy Setting
-                </label>
-                <div className="space-y-2">
-                  <label className="flex items-center gap-3 p-3 rounded-lg border-2 border-amber-200 cursor-pointer hover:bg-amber-50">
-                    <input
-                      type="radio"
-                      name="privacy"
-                      value="public"
-                      checked={formData.privacy === "public"}
-                      onChange={(e) =>
-                        handleInputChange("privacy", e.target.value)
-                      }
-                      className="text-amber-600"
-                    />
-                    <Globe className="w-5 h-5 text-amber-600" />
-                    <div>
-                      <div className="font-medium text-amber-800">Public</div>
-                      <div className="text-sm text-amber-600">
-                        Anyone can discover and join
-                      </div>
-                    </div>
-                  </label>
-                  <label className="flex items-center gap-3 p-3 rounded-lg border-2 border-amber-200 cursor-pointer hover:bg-amber-50">
-                    <input
-                      type="radio"
-                      name="privacy"
-                      value="private"
-                      checked={formData.privacy === "private"}
-                      onChange={(e) =>
-                        handleInputChange("privacy", e.target.value)
-                      }
-                      className="text-amber-600"
-                    />
-                    <Lock className="w-5 h-5 text-amber-600" />
-                    <div>
-                      <div className="font-medium text-amber-800">Private</div>
-                      <div className="text-sm text-amber-600">
-                        Members need approval to join
-                      </div>
-                    </div>
-                  </label>
-                </div>
-              </div>
             </div>
 
             <div className="mt-6">
@@ -285,9 +217,7 @@ const CreateCommunityPage = () => {
               </label>
               <textarea
                 value={formData.description}
-                onChange={(e) =>
-                  handleInputChange("description", e.target.value)
-                }
+                onChange={(e) => handleInputChange("description", e.target.value)}
                 rows={4}
                 className={`w-full px-4 py-3 text-[#fffbeb] bg-[#78350f] rounded-lg border-2 focus:outline-none transition-colors resize-none ${
                   errors.description
@@ -307,10 +237,7 @@ const CreateCommunityPage = () => {
 
           {/* Customization */}
           <div className="bg-white rounded-2xl p-6 shadow-lg">
-            <h2
-              className="text-xl font-semibold mb-6"
-              style={{ color: "rgb(120, 53, 15)" }}
-            >
+            <h2 className="text-xl font-semibold mb-6" style={{ color: "rgb(120, 53, 15)" }}>
               Customization
             </h2>
 
@@ -388,12 +315,9 @@ const CreateCommunityPage = () => {
             </div>
           </div>
 
-          {/* Guidelines & Welcome Message */}
+          {/* Guidelines & Welcome */}
           <div className="bg-white rounded-2xl p-6 shadow-lg">
-            <h2
-              className="text-xl font-semibold mb-6"
-              style={{ color: "rgb(120, 53, 15)" }}
-            >
+            <h2 className="text-xl font-semibold mb-6" style={{ color: "rgb(120, 53, 15)" }}>
               Community Guidelines & Welcome
             </h2>
 
@@ -404,9 +328,7 @@ const CreateCommunityPage = () => {
                 </label>
                 <textarea
                   value={formData.guidelines}
-                  onChange={(e) =>
-                    handleInputChange("guidelines", e.target.value)
-                  }
+                  onChange={(e) => handleInputChange("guidelines", e.target.value)}
                   rows={5}
                   className={`w-full px-4 py-3 text-[#fffbeb] bg-[#78350f] rounded-lg border-2 focus:outline-none transition-colors resize-none ${
                     errors.guidelines
@@ -440,14 +362,8 @@ const CreateCommunityPage = () => {
             </div>
           </div>
 
-          {/* Submit Buttons */}
+          {/* Submit */}
           <div className="flex gap-4 justify-end">
-            <button
-              type="button"
-              className="px-8 py-3 rounded-lg border-2 border-amber-300 text-amber-700 font-medium hover:bg-amber-50 transition-all duration-200"
-            >
-              Save as Draft
-            </button>
             <button
               type="submit"
               className="px-8 py-3 rounded-lg text-white font-medium shadow-lg hover:shadow-xl transition-all duration-200 hover:opacity-90"

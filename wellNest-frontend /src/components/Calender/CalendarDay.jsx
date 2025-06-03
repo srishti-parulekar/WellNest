@@ -1,8 +1,9 @@
 import { Frown, Meh, Smile } from 'lucide-react';
-import React, { useState } from 'react';
+import React from 'react';
 
 const CalendarDay = ({ date, entry, isToday, isCurrentMonth, isFuture, onClick }) => {
   const day = date.getDate();
+
   const MoodIcon = ({ mood, size = 16 }) => {
     const moodIcons = {
       happy: <Smile size={size} className="text-amber-600" />,
@@ -37,11 +38,11 @@ const CalendarDay = ({ date, entry, isToday, isCurrentMonth, isFuture, onClick }
           <MoodIcon mood={entry.mood} size={14} />
         )}
       </div>
-      
+
       {entry && !isFuture && (
         <div className="mt-1">
           <p className="text-xs text-amber-700 line-clamp-2 leading-tight">
-            {entry.content.substring(0, 50)}...
+            {entry.entry?.substring(0, 50)}...
           </p>
           {entry.tags && entry.tags.length > 0 && (
             <div className="mt-1">
@@ -63,7 +64,7 @@ const CalendarDay = ({ date, entry, isToday, isCurrentMonth, isFuture, onClick }
           )}
         </div>
       )}
-      
+
       {isFuture && (
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="w-4 h-4 border-2 border-amber-300 rounded-full opacity-30"></div>

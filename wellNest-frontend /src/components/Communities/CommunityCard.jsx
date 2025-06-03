@@ -1,8 +1,11 @@
 import React from 'react';
 import { Users, MessageCircle, Shield } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const CommunityCard = ({ community, isJoined, handleJoin }) => {
   const IconComponent = community.icon;
+  const navigate = useNavigate();
+
   return (
     <div
       key={community.id}
@@ -53,7 +56,7 @@ const CommunityCard = ({ community, isJoined, handleJoin }) => {
           >
             {isJoined ? 'Joined ✓' : 'Join'}
           </button>
-          <button className="px-4 py-2 rounded-full border-2 border-amber-200 text-amber-700 hover:bg-amber-50 transition-all duration-200 text-sm font-medium">
+          <button onClick={() => navigate("/community/view")} className="px-4 py-2 rounded-full border-2 border-amber-200 text-amber-700 hover:bg-amber-50 transition-all duration-200 text-sm font-medium">
             View
           </button>
         </div>
